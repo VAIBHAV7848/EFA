@@ -29,11 +29,11 @@ This skill must be accessible to Everything For Ai before activation. Two ways t
 Before any installation, clone the latest EFA source to `/tmp`:
 
 ```bash
-rm -rf /tmp/everything-for-ai
-git clone https://github.com/affaan-m/everything-for-ai.git /tmp/everything-for-ai
+rm -rf /tmp/EFA
+git clone https://github.com/VAIBHAV7848/EFA.git /tmp/EFA
 ```
 
-Set `EFA_ROOT=/tmp/everything-for-ai` as the source for all subsequent copy operations.
+Set `EFA_ROOT=/tmp/EFA` as the source for all subsequent copy operations.
 
 If the clone fails (network issues, etc.), use `AskUserQuestion` to ask the user to provide a local path to an existing EFA clone.
 
@@ -67,7 +67,7 @@ mkdir -p $TARGET/skills $TARGET/rules
 
 ### 2a: Choose Scope (Core vs Niche)
 
-Default to **Core (recommended for new users)** — copy `.agents/skills/*` plus `skills/search-first/` for research-first workflows. This bundle covers engineering, evals, verification, security, strategic compaction, frontend design, and Anthropic cross-functional skills (article-writing, content-engine, market-research, frontend-slides).
+Default to **Core (recommended for new users)** — copy `skills/*` plus `skills/search-first/` for research-first workflows. This bundle covers engineering, evals, verification, security, strategic compaction, frontend design, and Anthropic cross-functional skills (article-writing, content-engine, market-research, frontend-slides).
 
 Use `AskUserQuestion` (single select):
 ```
@@ -203,10 +203,7 @@ For each selected category, print the full list of skills below and ask the user
 For each selected skill, copy the entire skill directory from the correct source root:
 
 ```bash
-# Core skills live under .agents/skills/
-cp -R "$EFA_ROOT/.agents/skills/<skill-name>" "$TARGET/skills/"
-
-# Niche skills live under skills/
+# Skills live under skills/
 cp -R "$EFA_ROOT/skills/<skill-name>" "$TARGET/skills/"
 ```
 

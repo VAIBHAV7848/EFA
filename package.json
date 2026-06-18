@@ -1,0 +1,28 @@
+{
+  "name": "efa",
+  "version": "1.0.0",
+  "description": "Everything For Ai (EFA) - production-ready agents, skills, hooks, commands, rules, and MCP configurations",
+  "main": "index.js",
+  "bin": {
+    "efa-install": "install.sh"
+  },
+  "scripts": {
+    "postinstall": "echo '\\n  EFA installed successfully!\\n  Run: ./install.sh\\n'",
+    "test": "echo \"Error: no test specified\" && exit 0"
+  },
+  "keywords": [
+    "ai",
+    "agents",
+    "claude",
+    "cursor",
+    "copilot",
+    "skills",
+    "rules",
+    "hooks"
+  ],
+  "author": "VAIBHAV7848",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  }
+}
