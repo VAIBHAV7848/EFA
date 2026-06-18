@@ -1,6 +1,6 @@
 ---
 name: eval-harness
-description: Formal evaluation framework for Everything For Ai sessions implementing eval-driven development (EDD) principles
+description: Formal evaluation framework for Claude Code sessions implementing eval-driven development (EDD) principles
 metadata:
   origin: EFA
 tools: Read, Write, Edit, Bash, Grep, Glob
@@ -8,12 +8,12 @@ tools: Read, Write, Edit, Bash, Grep, Glob
 
 # Eval Harness Skill
 
-A formal evaluation framework for Everything For Ai sessions, implementing eval-driven development (EDD) principles.
+A formal evaluation framework for Claude Code sessions, implementing eval-driven development (EDD) principles.
 
 ## When to Activate
 
 - Setting up eval-driven development (EDD) for AI-assisted workflows
-- Defining pass/fail criteria for Everything For Ai task completion
+- Defining pass/fail criteria for Claude Code task completion
 - Measuring agent reliability with pass@k metrics
 - Creating regression test suites for prompt or agent changes
 - Benchmarking agent performance across model versions

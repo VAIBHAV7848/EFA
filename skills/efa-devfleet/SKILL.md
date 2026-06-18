@@ -1,5 +1,5 @@
 ---
-name: claude-devfleet
+name: efa-devfleet
 description: Orchestrate multi-agent coding tasks via Claude DevFleet — plan projects, dispatch parallel agents in isolated worktrees, monitor progress, and read structured reports.
 metadata:
   origin: community
@@ -9,12 +9,12 @@ metadata:
 
 ## When to Use
 
-Use this skill when you need to dispatch multiple Everything For Ai agents to work on coding tasks in parallel. Each agent runs in an isolated git worktree with full tooling.
+Use this skill when you need to dispatch multiple Claude Code agents to work on coding tasks in parallel. Each agent runs in an isolated git worktree with full tooling.
 
 ## Setup
 
 The DevFleet server is a separate project, not bundled with EFA. Install and
-run it from its repository first: <https://github.com/LEC-AI/claude-devfleet>
+run it from its repository first: <https://github.com/LEC-AI/efa-devfleet>
 
 Then connect the running instance via MCP:
 ```bash

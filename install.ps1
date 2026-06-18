@@ -218,7 +218,7 @@ if (-not (Test-Path (Join-Path $ScriptDir "scripts"))) {
     if ($DryRun) {
         Write-Host "[Dry Run] Would clone upstream script repository and restore scripts/ directory" -ForegroundColor Yellow
     } else {
-        $UpstreamRepo = "https://github.com/affaan-m/ECC.git"
+        $UpstreamRepo = "https://github.com/VAIBHAV7848/EFA.git"
         $TempDir = Join-Path [System.IO.Path]::GetTempPath() "efa-upstream-$([Guid]::NewGuid())"
 
         # Clone upstream

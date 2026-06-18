@@ -31,7 +31,7 @@ Prefer the live workspace model:
 - **Use for:** the current operational state of the work
 - **Rule:** if something affects an active engineering plan, roadmap, rollout, or release, prefer putting it here first
 
-### Layer 2: Everything For Ai Memory (Quick Access)
+### Layer 2: Claude Code Memory (Quick Access)
 - **Path:** `~/.claude/projects/*/memory/`
 - **Format:** Markdown files with frontmatter
 - **Types:** user preferences, feedback, project context, reference
@@ -78,7 +78,7 @@ Check if this knowledge already exists:
 
 ### 3. Store
 Write to appropriate layer(s):
-- Always update Everything For Ai memory for quick access
+- Always update Claude Code memory for quick access
 - Use MCP memory for semantic searchability and relationship mapping
 - Update GitHub / Linear first when the information changes live project truth
 - Commit to the knowledge base repo for durable long-form additions

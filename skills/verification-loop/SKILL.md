@@ -1,13 +1,13 @@
 ---
 name: verification-loop
-description: "A comprehensive verification system for Everything For Ai sessions."
+description: "A comprehensive verification system for Claude Code sessions."
 metadata:
   origin: EFA
 ---
 
 # Verification Loop Skill
 
-A comprehensive verification system for Everything For Ai sessions.
+A comprehensive verification system for Claude Code sessions.
 
 ## When to Use
 

@@ -1,6 +1,6 @@
 #!/bin/bash
 # Continuous Learning - Session Evaluator
-# Runs on Stop hook to extract reusable patterns from Everything For Ai sessions
+# Runs on Stop hook to extract reusable patterns from Claude Code sessions
 #
 # Why Stop hook instead of UserPromptSubmit:
 # - Stop runs once at session end (lightweight)
@@ -43,7 +43,7 @@ fi
 # Ensure learned skills directory exists
 mkdir -p "$LEARNED_SKILLS_PATH"
 
-# Get transcript path from stdin JSON (Everything For Ai hook input)
+# Get transcript path from stdin JSON (Claude Code hook input)
 # Falls back to env var for backwards compatibility
 stdin_data=$(cat)
 transcript_path=$(echo "$stdin_data" | grep -o '"transcript_path":"[^"]*"' | head -1 | cut -d'"' -f4)

@@ -1,20 +1,20 @@
 ---
 name: security-scan
-description: Scan your Everything For Ai configuration (.claude/ directory) for security vulnerabilities, misconfigurations, and injection risks using AgentShield. Checks CLAUDE.md, settings.json, MCP servers, hooks, and agent definitions.
+description: Scan your Claude Code configuration (.claude/ directory) for security vulnerabilities, misconfigurations, and injection risks using AgentShield. Checks CLAUDE.md, settings.json, MCP servers, hooks, and agent definitions.
 metadata:
   origin: EFA
 ---
 
 # Security Scan Skill
 
-Audit your Everything For Ai configuration for security issues using [AgentShield](https://github.com/affaan-m/agentshield).
+Audit your Claude Code configuration for security issues using [AgentShield](https://github.com/VAIBHAV7848/agentshield).
 
 ## When to Activate
 
-- Setting up a new Everything For Ai project
+- Setting up a new Claude Code project
 - After modifying `.claude/settings.json`, `CLAUDE.md`, or MCP configs
 - Before committing configuration changes
-- When onboarding to a new repository with existing Everything For Ai configs
+- When onboarding to a new repository with existing Claude Code configs
 - Periodic security hygiene checks
 
 ## What It Scans
@@ -121,7 +121,7 @@ Creates:
 Add to your CI pipeline:
 
 ```yaml
-- uses: affaan-m/agentshield@v1
+- uses: VAIBHAV7848/agentshield@v1
   with:
     path: '.'
     min-severity: 'medium'
@@ -162,5 +162,5 @@ Add to your CI pipeline:
 
 ## Links
 
-- **GitHub**: [github.com/affaan-m/agentshield](https://github.com/affaan-m/agentshield)
+- **GitHub**: [github.com/VAIBHAV7848/agentshield](https://github.com/VAIBHAV7848/agentshield)
 - **npm**: [npmjs.com/package/efa-agentshield](https://www.npmjs.com/package/efa-agentshield)

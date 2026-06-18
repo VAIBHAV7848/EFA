@@ -6,7 +6,7 @@ model: haiku
 
 # Observer Agent
 
-A background agent that analyzes observations from Everything For Ai sessions to detect patterns and create instincts.
+A background agent that analyzes observations from Claude Code sessions to detect patterns and create instincts.
 
 ## When to Run
 

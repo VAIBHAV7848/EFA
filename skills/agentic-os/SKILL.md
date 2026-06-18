@@ -1,18 +1,18 @@
 ---
 name: agentic-os
-description: Build persistent multi-agent operating systems on Everything For Ai. Covers kernel architecture, specialist agents, slash commands, file-based memory, scheduled automation, and state management without external databases.
+description: Build persistent multi-agent operating systems on Claude Code. Covers kernel architecture, specialist agents, slash commands, file-based memory, scheduled automation, and state management without external databases.
 metadata:
   origin: EFA
 ---
 
 # Agentic OS
 
-Treat Everything For Ai as a persistent runtime / operating system rather than a chat session. This skill codifies the architecture used by production agentic setups: a kernel config that routes tasks to specialist agents, persistent file-based memory, scheduled automation, and a JSON/markdown data layer.
+Treat Claude Code as a persistent runtime / operating system rather than a chat session. This skill codifies the architecture used by production agentic setups: a kernel config that routes tasks to specialist agents, persistent file-based memory, scheduled automation, and a JSON/markdown data layer.
 
 ## When to Activate
 
-- Building a multi-agent workflow inside Everything For Ai
-- Setting up persistent Everything For Ai automation that survives session restarts
+- Building a multi-agent workflow inside Claude Code
+- Setting up persistent Claude Code automation that survives session restarts
 - Creating a "personal OS" or "agentic OS" for recurring tasks
 - User says "agentic OS", "personal OS", "multi-agent", "agent coordinator", "persistent agent"
 - Structuring long-running projects where context must survive across sessions
@@ -124,7 +124,7 @@ Kernel routing:
 3. Kernel synthesizes both outputs into a unified response
 ```
 
-For parallel execution, use Everything For Ai's background task capability or shell scripts that invoke Everything For Ai with specific agent contexts.
+For parallel execution, use Claude Code's background task capability or shell scripts that invoke Claude Code with specific agent contexts.
 
 ## Commands and Daily Workflows
 
@@ -158,7 +158,7 @@ Run the morning briefing:
 
 ### Activating Commands
 
-Place command files in `.claude/commands/<command-name>.md`. Everything For Ai auto-discovers them. Users invoke them with `/<command-name>`.
+Place command files in `.claude/commands/<command-name>.md`. Claude Code auto-discovers them. Users invoke them with `/<command-name>`.
 
 ## Persistent Memory
 
@@ -211,7 +211,7 @@ This creates a feedback loop that improves the system over time without code cha
 
 ## Scheduled Automation
 
-Agentic OS tasks run on a schedule using external cron, not Everything For Ai's built-in cron (which dies when the session ends).
+Agentic OS tasks run on a schedule using external cron, not Claude Code's built-in cron (which dies when the session ends).
 
 ### macOS: LaunchAgent
 
@@ -343,7 +343,7 @@ Split into specialist agents. The kernel handles routing.
 
 ```markdown
 # BAD - No memory between sessions
-Starting fresh every time Everything For Ai opens.
+Starting fresh every time Claude Code opens.
 ```
 
 Always read `data/` at session start and write back at session end.
@@ -383,6 +383,6 @@ Keep routing declarative in `CLAUDE.md` markdown tables. It is inspectable, edit
 - [ ] Logs are append-only; never edit past daily logs
 - [ ] Every agent has a `Memory Scope` section defining what files it reads
 - [ ] Reflections are written at the end of every session
-- [ ] Scheduled tasks use external cron (LaunchAgent, systemd, pm2), not Everything For Ai's session cron
+- [ ] Scheduled tasks use external cron (LaunchAgent, systemd, pm2), not Claude Code's session cron
 - [ ] Cost tracking: log API spend per session in `data/logs/<date>-costs.json`
 - [ ] One project = one Agentic OS. Do not share a single `CLAUDE.md` across unrelated projects.

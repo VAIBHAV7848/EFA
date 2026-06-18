@@ -1430,7 +1430,7 @@ def cmd_projects(args) -> int:
 
     if not registry:
         print("No projects registered yet.")
-        print("Projects are auto-detected when you use Everything For Ai in a git repo.")
+        print("Projects are auto-detected when you use Claude Code in a git repo.")
         return 0
 
     print(f"\n{'='*60}")

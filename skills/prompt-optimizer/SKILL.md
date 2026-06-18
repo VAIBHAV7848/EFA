@@ -27,7 +27,7 @@ and output a complete optimized prompt the user can paste and run.
 
 - User says "optimize this prompt", "improve my prompt", "rewrite this prompt"
 - User says "help me write a better prompt for..."
-- User says "what's the best way to ask Everything For Ai to..."
+- User says "what's the best way to ask Claude Code to..."
 - User says "优化prompt", "改进prompt", "怎么写prompt", "帮我优化这个指令"
 - User pastes a draft prompt and asks for feedback or enhancement
 - User says "I don't know how to prompt for this"
@@ -268,7 +268,7 @@ A compact version for experienced EFA users. Vary by intent type:
 ### Trigger Examples
 
 - "Optimize this prompt for EFA"
-- "Rewrite this prompt so Everything For Ai uses the right commands"
+- "Rewrite this prompt so Claude Code uses the right commands"
 - "帮我优化这个指令"
 - "How should I prompt EFA for this task?"
 

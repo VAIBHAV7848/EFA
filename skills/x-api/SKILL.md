@@ -44,7 +44,7 @@ headers = {"Authorization": f"Bearer {bearer}"}
 resp = requests.get(
     "https://api.x.com/2/tweets/search/recent",
     headers=headers,
-    params={"query": "Everything For Ai", "max_results": 10}
+    params={"query": "claude code", "max_results": 10}
 )
 tweets = resp.json()
 ```
@@ -82,7 +82,7 @@ oauth = OAuth1Session(
 ```python
 resp = oauth.post(
     "https://api.x.com/2/tweets",
-    json={"text": "Hello from Everything For Ai"}
+    json={"text": "Hello from Claude Code"}
 )
 resp.raise_for_status()
 tweet_id = resp.json()["data"]["id"]
@@ -125,7 +125,7 @@ resp = requests.get(
     "https://api.x.com/2/tweets/search/recent",
     headers=headers,
     params={
-        "query": "from:affaanmustafa -is:retweet",
+        "query": "from:VAIBHAV7848 -is:retweet",
         "max_results": 10,
         "tweet.fields": "public_metrics,created_at",
     }
@@ -139,7 +139,7 @@ resp = requests.get(
     "https://api.x.com/2/tweets/search/recent",
     headers=headers,
     params={
-        "query": "from:affaanmustafa -is:retweet -is:reply",
+        "query": "from:VAIBHAV7848 -is:retweet -is:reply",
         "max_results": 25,
         "tweet.fields": "created_at,public_metrics",
     }
@@ -151,7 +151,7 @@ voice_samples = resp.json()
 
 ```python
 resp = requests.get(
-    "https://api.x.com/2/users/by/username/affaanmustafa",
+    "https://api.x.com/2/users/by/username/VAIBHAV7848",
     headers=headers,
     params={"user.fields": "public_metrics,description,created_at"}
 )

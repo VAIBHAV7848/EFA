@@ -10,7 +10,7 @@ description: >
   demand charges, evaluating PPAs, or developing energy strategies.
 license: Apache-2.0
 version: 1.0.0
-homepage: https://github.com/affaan-m/everything-for-ai
+homepage: https://github.com/VAIBHAV7848/EFA
 metadata:
   origin: EFA
   author: evos

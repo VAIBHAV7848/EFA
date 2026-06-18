@@ -2,7 +2,7 @@
 # Continuous Learning v2 - Observation Hook
 #
 # Captures tool use events for pattern analysis.
-# Everything For Ai passes hook data via stdin as JSON.
+# Claude Code passes hook data via stdin as JSON.
 #
 # v2.1: Project-scoped observations — detects current project context
 #       and writes observations to project-specific directory.
@@ -14,7 +14,7 @@ set -e
 
 # Hook phase from CLI argument: "pre" (PreToolUse) or "post" (PostToolUse).
 # Manual settings.json installs can call this script without the plugin
-# wrapper's positional phase argument, but Everything For Ai still exposes the hook
+# wrapper's positional phase argument, but Claude Code still exposes the hook
 # event name in CLAUDE_HOOK_EVENT_NAME.  Fall back to that env var before
 # defaulting to post so manually registered PreToolUse hooks are recorded as
 # tool_start instead of being silently misclassified as tool_complete.
@@ -31,7 +31,7 @@ fi
 # Read stdin first (before project detection)
 # ─────────────────────────────────────────────
 
-# Read JSON from stdin (Everything For Ai hook format)
+# Read JSON from stdin (Claude Code hook format)
 INPUT_JSON=$(cat)
 
 # Exit if no input
@@ -208,7 +208,7 @@ if [ ! -f "$PURGE_MARKER" ] || [ "$(find "$PURGE_MARKER" -mtime +1 2>/dev/null)"
 fi
 
 # Parse using Python via stdin pipe (safe for all JSON payloads)
-# Pass HOOK_PHASE via env var since Everything For Ai does not include hook type in stdin JSON
+# Pass HOOK_PHASE via env var since Claude Code does not include hook type in stdin JSON
 PARSED=$(echo "$INPUT_JSON" | HOOK_PHASE="$HOOK_PHASE" "$PYTHON_CMD" -c '
 import json
 import sys
@@ -218,12 +218,12 @@ try:
     data = json.load(sys.stdin)
 
     # Determine event type from CLI argument passed via env var.
-    # Everything For Ai does NOT include a "hook_type" field in the stdin JSON,
+    # Claude Code does NOT include a "hook_type" field in the stdin JSON,
     # so we rely on the shell argument ("pre" or "post") instead.
     hook_phase = os.environ.get("HOOK_PHASE", "post")
     event = "tool_start" if hook_phase == "pre" else "tool_complete"
 
-    # Extract fields - Everything For Ai hook format
+    # Extract fields - Claude Code hook format
     tool_name = data.get("tool_name", data.get("tool", "unknown"))
     tool_input = data.get("tool_input", data.get("input", {}))
     tool_output = data.get("tool_response")

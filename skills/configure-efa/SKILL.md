@@ -11,14 +11,14 @@ An interactive, step-by-step installation wizard for the Everything For Ai proje
 
 ## When to Activate
 
-- User says "configure efa", "install efa", "setup Everything For Ai", or similar
+- User says "configure efa", "install efa", "setup everything for ai", or similar
 - User wants to selectively install skills or rules from this project
 - User wants to verify or fix an existing EFA installation
 - User wants to optimize installed skills or rules for their project
 
 ## Prerequisites
 
-This skill must be accessible to Everything For Ai before activation. Two ways to bootstrap:
+This skill must be accessible to Claude Code before activation. Two ways to bootstrap:
 1. **Via Plugin**: `/plugin install efa@efa` — the plugin loads this skill automatically
 2. **Manual**: Copy only this skill to `~/.claude/skills/configure-efa/SKILL.md`, then activate by saying "configure efa"
 
@@ -29,11 +29,11 @@ This skill must be accessible to Everything For Ai before activation. Two ways t
 Before any installation, clone the latest EFA source to `/tmp`:
 
 ```bash
-rm -rf /tmp/EFA
-git clone https://github.com/VAIBHAV7848/EFA.git /tmp/EFA
+rm -rf /tmp/everything-for-ai
+git clone https://github.com/VAIBHAV7848/EFA.git /tmp/everything-for-ai
 ```
 
-Set `EFA_ROOT=/tmp/EFA` as the source for all subsequent copy operations.
+Set `EFA_ROOT=/tmp/everything-for-ai` as the source for all subsequent copy operations.
 
 If the clone fails (network issues, etc.), use `AskUserQuestion` to ask the user to provide a local path to an existing EFA clone.
 
@@ -46,7 +46,7 @@ Use `AskUserQuestion` to ask the user where to install:
 ```
 Question: "Where should EFA components be installed?"
 Options:
-  - "User-level (~/.claude/)" — "Applies to all your Everything For Ai projects"
+  - "User-level (~/.claude/)" — "Applies to all your Claude Code projects"
   - "Project-level (.claude/)" — "Applies only to the current project"
   - "Both" — "Common/shared items user-level, project-specific items project-level"
 ```
@@ -67,7 +67,7 @@ mkdir -p $TARGET/skills $TARGET/rules
 
 ### 2a: Choose Scope (Core vs Niche)
 
-Default to **Core (recommended for new users)** — copy `skills/*` plus `skills/search-first/` for research-first workflows. This bundle covers engineering, evals, verification, security, strategic compaction, frontend design, and Anthropic cross-functional skills (article-writing, content-engine, market-research, frontend-slides).
+Default to **Core (recommended for new users)** — copy `.agents/skills/*` plus `skills/search-first/` for research-first workflows. This bundle covers engineering, evals, verification, security, strategic compaction, frontend design, and Anthropic cross-functional skills (article-writing, content-engine, market-research, frontend-slides).
 
 Use `AskUserQuestion` (single select):
 ```
@@ -203,7 +203,10 @@ For each selected category, print the full list of skills below and ask the user
 For each selected skill, copy the entire skill directory from the correct source root:
 
 ```bash
-# Skills live under skills/
+# Core skills live under .agents/skills/
+cp -R "$EFA_ROOT/.agents/skills/<skill-name>" "$TARGET/skills/"
+
+# Niche skills live under skills/
 cp -R "$EFA_ROOT/skills/<skill-name>" "$TARGET/skills/"
 ```
 
@@ -368,14 +371,14 @@ Then print a summary report:
 
 ## Troubleshooting
 
-### "Skills not being picked up by Everything For Ai"
+### "Skills not being picked up by Claude Code"
 - Verify the skill directory contains a `SKILL.md` file (not just loose .md files)
 - For user-level: check `~/.claude/skills/<skill-name>/SKILL.md` exists
 - For project-level: check `.claude/skills/<skill-name>/SKILL.md` exists
 
 ### "Rules not working"
 - Rules are flat files, not in subdirectories: `$TARGET/rules/coding-style.md` (correct) vs `$TARGET/rules/common/coding-style.md` (incorrect for flat install)
-- Restart Everything For Ai after installing rules
+- Restart Claude Code after installing rules
 
 ### "Path reference errors after project-level install"
 - Some skills assume `~/.claude/` paths. Run Step 4 verification to find and fix these.

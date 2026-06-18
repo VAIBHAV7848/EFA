@@ -1,22 +1,22 @@
 ---
 name: config-gc
-description: Garbage collection for your Everything For Ai configuration. Periodically scans ~/.claude (skills, memory, hooks, permissions, MCP servers, caches) for redundant, stale, orphaned, or low-value items, then walks the user through a confirm-each-deletion cleanup. Use when the user says "clean up my config", "config GC", "too many skills", "audit my setup", "my .claude is bloated", or asks for a periodic config review.
+description: Garbage collection for your Claude Code configuration. Periodically scans ~/.claude (skills, memory, hooks, permissions, MCP servers, caches) for redundant, stale, orphaned, or low-value items, then walks the user through a confirm-each-deletion cleanup. Use when the user says "clean up my config", "config GC", "too many skills", "audit my setup", "my .claude is bloated", or asks for a periodic config review.
 metadata:
   origin: EFA
 ---
 
-# Config GC — Garbage Collection for Everything For Ai Setups
+# Config GC — Garbage Collection for Claude Code Setups
 
 Borrowed from runtime garbage collection: periodically scan for objects that are no longer referenced, redundant, expired, or low-value, and reclaim the space. The critical difference: **here, collection requires a human in the loop. Never delete autonomously.**
 
 ## When to Activate
 
-- The user asks to clean up, audit, or slim down their Everything For Ai configuration
+- The user asks to clean up, audit, or slim down their Claude Code configuration
 - The user complains about too many skills, noisy hooks, or slow session startup
 - A monthly/periodic config review is due
 - After installing a large skill pack (e.g. this repo), to reconcile overlaps with existing setup
 
-Do NOT activate for: cleaning project source code (that's refactoring), clearing chat history, or uninstalling Everything For Ai itself.
+Do NOT activate for: cleaning project source code (that's refactoring), clearing chat history, or uninstalling Claude Code itself.
 
 ## Design Philosophy
 

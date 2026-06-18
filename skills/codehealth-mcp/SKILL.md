@@ -40,7 +40,7 @@ Same triggers as **When to Use** above — this heading is what EFA uses for ski
 
 Copy the `codescene` entry from `mcp-configs/mcp-servers.json` into your harness MCP config.
 
-**Everything For Ai** (`~/.claude.json` → `mcpServers`):
+**Claude Code** (`~/.claude.json` → `mcpServers`):
 
 ```json
 "codescene": {

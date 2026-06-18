@@ -9,13 +9,13 @@ version: 2.1.0
 # Continuous Learning v2.1 - Instinct
 -Based Architecture
 
-An advanced learning system that turns your Everything For Ai sessions into reusable knowledge through atomic "instincts" - small learned behaviors with confidence scoring.
+An advanced learning system that turns your Claude Code sessions into reusable knowledge through atomic "instincts" - small learned behaviors with confidence scoring.
 
 **v2.1** adds **project-scoped instincts** — React patterns stay in your React project, Python conventions stay in your Python project, and universal patterns (like "always validate input") are shared globally.
 
 ## When to Activate
 
-- Setting up automatic learning from Everything For Ai sessions
+- Setting up automatic learning from Claude Code sessions
 - Configuring instinct-based behavior extraction via hooks
 - Tuning confidence thresholds for learned behaviors
 - Reviewing, exporting, or importing instinct libraries
@@ -137,7 +137,7 @@ Each project gets a 12-character hash ID (e.g., `a1b2c3d4e5f6`). A registry file
 
 ### Data Directory
 
-Continuous-learning-v2 stores observer data outside `~/.claude` so Everything For Ai's sensitive-path guard does not block background instinct writes:
+Continuous-learning-v2 stores observer data outside `~/.claude` so Claude Code's sensitive-path guard does not block background instinct writes:
 
 1. `CLV2_HOMUNCULUS_DIR` when set to an absolute path
 2. `$XDG_DATA_HOME/efa-homunculus`
@@ -155,7 +155,7 @@ bash skills/continuous-learning-v2/scripts/migrate-homunculus.sh
 
 **If installed as a plugin** (recommended):
 
-No extra `settings.json` hook block is required. Everything For Ai v2.1+ auto-loads the plugin `hooks/hooks.json`, and `observe.sh` is already registered there.
+No extra `settings.json` hook block is required. Claude Code v2.1+ auto-loads the plugin `hooks/hooks.json`, and `observe.sh` is already registered there.
 
 If you previously copied `observe.sh` into `~/.claude/settings.json`, remove that duplicate `PreToolUse` / `PostToolUse` block. Duplicating the plugin hook causes double execution and `${CLAUDE_PLUGIN_ROOT}` resolution errors because that variable is only available inside plugin-managed `hooks/hooks.json` entries.
 
@@ -354,7 +354,7 @@ v2.1 is fully compatible with v2.0 and v1:
 
 - [EFA-Tools GitHub App](https://github.com/apps/efa-tools) - Generate instincts from repo history
 - Homunculus - Community project that inspired the v2 instinct-based architecture (atomic observations, confidence scoring, instinct evolution pipeline)
-- [The Longform Guide](https://x.com/affaanmustafa/status/2014040193557471352) - Continuous learning section
+- [The Longform Guide](https://x.com/VAIBHAV7848/status/2014040193557471352) - Continuous learning section
 
 ---
 

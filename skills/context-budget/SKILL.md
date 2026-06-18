@@ -1,13 +1,13 @@
 ---
 name: context-budget
-description: Audits Everything For Ai context window consumption across agents, skills, MCP servers, and rules. Identifies bloat, redundant components, and produces prioritized token-savings recommendations.
+description: Audits Claude Code context window consumption across agents, skills, MCP servers, and rules. Identifies bloat, redundant components, and produces prioritized token-savings recommendations.
 metadata:
   origin: EFA
 ---
 
 # Context Budget
 
-Analyze token overhead across every loaded component in a Everything For Ai session and surface actionable optimizations to reclaim context space.
+Analyze token overhead across every loaded component in a Claude Code session and surface actionable optimizations to reclaim context space.
 
 ## When to Use
 
