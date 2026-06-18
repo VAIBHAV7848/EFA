@@ -113,6 +113,26 @@ cd EFA && npm install
 
 ---
 
+## ⚡ God Mode: The Ultimate Power Upgrade
+
+EFA is no longer just static rules—it is an active, parallel-executing AI engine. We have integrated three exclusive features that make EFA the most powerful AI Operating System in existence:
+
+1. **🧠 Infinite Context (Vector Memory Engine)**
+   EFA doesn't forget. Key decisions, architectures, and rules are stored in a local semantic JSON vector store. EFA will silently recall these tags across sessions without destroying your context window limits. 
+   - *Try it:* `node scripts/efa-memory-engine.js store "system, architecture" "Rule: glassmorphism"`
+
+2. **🌪️ True Parallelism (The Swarm Orchestrator)**
+   Stop waiting for agents to run sequentially. EFA uses Node.js asynchronous processes to spawn multiple AI sub-agents at the exact same time. Launch a frontend dev, backend dev, and security reviewer simultaneously.
+   - *Try it:* `/swarm "echo 'Agent 1'" "echo 'Agent 2'"`
+
+3. **🛠️ Auto-Healing Execution Loops (God Mode)**
+   Prefix any failing command with `/auto-heal`. Instead of crashing, EFA intercepts the stack trace, feeds it back to itself in a JSON payload, fixes the code autonomously, and re-runs the process until it's green.
+   - *Try it:* `/auto-heal npm run test`
+
+<br />
+
+---
+
 <br />
 
 ## 🏗️ Architecture

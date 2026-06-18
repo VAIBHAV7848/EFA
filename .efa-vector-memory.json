@@ -1,0 +1,13 @@
+{
+  "index": [
+    {
+      "id": "1781803329008",
+      "tags": [
+        "system",
+        "architecture"
+      ],
+      "content": "EFA uses a Vector Memory engine to persist rules across sessions.",
+      "timestamp": "2026-06-18T17:22:09.008Z"
+    }
+  ]
+}
