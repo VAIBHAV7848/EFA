@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code when working with code in this repository.
+This file provides guidance to all AI coding assistants (such as Claude Code, Cursor, Codex, OpenCode, Gemini, Qwen, and others) when working in this repository.
 
 ## Project Overview
 
