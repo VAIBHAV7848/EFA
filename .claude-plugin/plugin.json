@@ -1,0 +1,32 @@
+{
+  "name": "efa",
+  "version": "2.0.0",
+  "description": "Harness-native EFA plugin for engineering teams - 67 agents, 271 skills, 92 legacy command shims, reusable hooks, rules, MCP conventions, and operator workflows for Claude Code plus adjacent agent harnesses",
+  "author": {
+    "name": "VAIBHAV7848",
+    "url": "https://x.com/VAIBHAV7848"
+  },
+  "homepage": "https://efa.tools",
+  "repository": "https://github.com/VAIBHAV7848/EFA",
+  "license": "MIT",
+  "keywords": [
+    "claude-code",
+    "agents",
+    "skills",
+    "hooks",
+    "rules",
+    "tdd",
+    "code-review",
+    "security",
+    "workflow",
+    "automation",
+    "best-practices"
+  ],
+  "mcpServers": {},
+  "skills": [
+    "./skills/"
+  ],
+  "commands": [
+    "./commands/"
+  ]
+}

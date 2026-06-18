@@ -1,0 +1,21 @@
+{
+  "name": "efa",
+  "interface": {
+    "displayName": "EFA"
+  },
+  "plugins": [
+    {
+      "name": "efa",
+      "version": "2.0.0",
+      "source": {
+        "source": "local",
+        "path": "./plugins/efa"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

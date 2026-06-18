@@ -1,0 +1,10 @@
+# Standard files to ignore
+.DS_Store
+.idea/
+.vscode/
+*.log
+*~
+.nfs*
+
+# Ignore local compatibility symlink
+.agent
