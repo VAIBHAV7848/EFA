@@ -5,3 +5,6 @@
 *.log
 *~
 .nfs*
+
+# Ignore local compatibility symlink
+.agent
