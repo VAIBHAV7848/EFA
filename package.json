@@ -1,9 +1,10 @@
 {
-  "name": "efa",
+  "name": "@VAIBHAV7848/efa-universal",
   "version": "2.0.0",
   "description": "Harness-native agent operating system for Codex, OpenCode, Cursor, Gemini, Claude Code, and terminal workflows - skills, hooks, rules, MCP conventions, and operator control-plane patterns",
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "registry": "https://npm.pkg.github.com/"
   },
   "keywords": [
     "ai",

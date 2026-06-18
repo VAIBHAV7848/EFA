@@ -78,8 +78,9 @@ evolved over **10+ months** of real-world daily engineering across **12+ languag
 # Claude Code (recommended)
 claude plugin add --from github.com/VAIBHAV7848/EFA
 
-# Or via npm
-npm install -g efa-universal
+# Or via npm (GitHub Packages)
+npm config set @VAIBHAV7848:registry https://npm.pkg.github.com
+npm install -g @VAIBHAV7848/efa-universal
 ```
 
 </td>
