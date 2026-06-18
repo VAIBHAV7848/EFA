@@ -136,6 +136,7 @@ EFA includes experimental Tier-3 capabilities that push it beyond any existing f
 1. 👁️ **EFA Sentinel (Real-Time Watcher):** A background daemon that watches your codebase. The millisecond you hit `CTRL+S`, Sentinel analyzes your code and automatically fixes syntax errors before you even switch to your terminal. (`/sentinel`)
 2. 🐳 **EFA Docker Sandbox:** Execute chaotic, destructive, or complex agent tests safely within ephemeral isolated containers, protecting your host OS. (`node scripts/efa-docker-sandbox.js`)
 3. 🧬 **AST Parsing Engine:** EFA stops reading your code as text and starts reading it as Abstract Syntax Trees (AST). It understands the exact mathematical logic of your application, destroying hallucination. (`node scripts/efa-ast-parser.js`)
+4. 🧠 **The Evolution Engine (Self-Modifying Core):** EFA tracks its own successes and failures. When it learns a new coding pattern or fixes a bug, it permanently rewrites its own `SKILL.md` brain files. EFA literally programs itself to get smarter over time. (`/evolve`)
 
 <br />
 

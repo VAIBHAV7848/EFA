@@ -655,3 +655,7 @@ export function Modal({ isOpen, onClose, children }: ModalProps) {
 ```
 
 **Remember**: Modern frontend patterns enable maintainable, performant user interfaces. Choose patterns that fit your project complexity.
+
+
+## 🧬 Evolutionary Memory (Self-Learned Rules)
+- **[Learned 2026-06-18]:** Never use inline styles for React Glassmorphism. Always use CSS modules.
