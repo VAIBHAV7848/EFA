@@ -15,9 +15,9 @@
 > [!WARNING]
 > **Official sources only.** Install EFA only from verified channels: the GitHub repository [github.com/VAIBHAV7848/EFA](https://github.com/VAIBHAV7848/EFA) and your local configuration environment. Unofficial mirrors are not reviewed and may contain outdated logic.
 
-Not just configs. EFA is a complete system: skills, instincts, memory optimization, continuous learning, security scanning, and research-first development. EFA contains production-ready agents, skills, hooks, rules, MCP configurations, and legacy command shims evolved over intensive daily use building real products.
+Not just configs. EFA is a complete framework for **all AI coding agents**: providing unified skills, instincts, memory persistence, continuous learning, security scanning, and research-first development. EFA contains production-ready agents, skills, hooks, rules, and configurations compatible with any modern AI agent harness.
 
-Works across **Codex**, **Claude Code**, **Cursor**, **OpenCode**, **Gemini**, **Zed**, **GitHub Copilot**, and other AI agent harnesses.
+Works natively across **Claude Code**, **Cursor**, **Codex**, **OpenCode**, **Gemini**, **Zed**, **GitHub Copilot**, **Qwen**, and other AI agent environments.
 
 ---
 
