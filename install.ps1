@@ -4,6 +4,11 @@
 # 1. Minimal: Zero-dependency, offline-friendly copy of rules and workflows to ~/.claude or .claude
 # 2. Full / Hooks Runtime: Automatically restores the Node.js installation scripts from the
 #    upstream repository, installs npm dependencies, and delegates to the Node-based installer.
+#
+# Upgraded with:
+# - Auto-Stack Detection: Scans project to detect active languages and target install scope.
+# - Multi-Agent Rules Consolidation: Generates unified rules files for Cursor (.cursorrules),
+#   Windsurf (.windsurfrules), and GitHub Copilot (.github/copilot-instructions.md).
 
 param (
     [string]$Profile = "",
@@ -32,6 +37,91 @@ if ($Project) {
     $Level = "user"
 }
 
+# Helper: Detect active stack in the current directory
+function Detect-Stack {
+    $detected = @()
+    # Check TS/JS
+    if ((Test-Path "package.json") -or (Test-Path "tsconfig.json") -or (Get-ChildItem *.ts, *.js, *.tsx, *.jsx -ErrorAction SilentlyContinue)) {
+        $detected += "typescript"
+    }
+    # Check Python
+    if ((Test-Path "requirements.txt") -or (Test-Path "pyproject.toml") -or (Test-Path "Pipfile") -or (Get-ChildItem *.py -ErrorAction SilentlyContinue)) {
+        $detected += "python"
+    }
+    # Check Go
+    if ((Test-Path "go.mod") -or (Get-ChildItem *.go -ErrorAction SilentlyContinue)) {
+        $detected += "golang"
+    }
+    # Check Rust
+    if ((Test-Path "Cargo.toml") -or (Get-ChildItem src\*.rs -ErrorAction SilentlyContinue)) {
+        $detected += "rust"
+    }
+    # Check Java
+    if ((Test-Path "pom.xml") -or (Test-Path "build.gradle") -or (Get-ChildItem src\main\java\**\*.java -ErrorAction SilentlyContinue)) {
+        $detected += "java"
+    }
+    return $detected
+}
+
+# Helper: Generate consolidated rules file for Cursor/Windsurf/Copilot
+function Generate-ConsolidatedRules {
+    param (
+        [string]$OutFile,
+        [string[]]$Langs
+    )
+
+    if ($DryRun) {
+        Write-Host "[Dry Run] Would generate consolidated rules file: $OutFile" -ForegroundColor Yellow
+        return
+    }
+
+    # Ensure parent folder exists
+    $parentDir = Split-Path -Parent $OutFile
+    if ($parentDir -and -not (Test-Path $parentDir)) {
+        $null = New-Item -ItemType Directory -Force -Path $parentDir
+    }
+
+    Write-Host "[EFA] Consolidating rules to '$OutFile'..." -ForegroundColor Blue
+    
+    # Write Header
+    $content = @()
+    $content += "# Everything For Ai (EFA) - Project Rules"
+    $content += "# Generated on $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')"
+    $content += ""
+    $content += "This file provides system prompt directives and development rules for AI coding agents."
+    $content += ""
+
+    # Append Common Rules
+    if (Test-Path "rules\common") {
+        $content += "## Common Rules"
+        foreach ($ruleFile in Get-ChildItem "rules\common\*.md") {
+            $title = (Get-Item $ruleFile).BaseName.Replace("-", " ").ToUpper()
+            $content += ""
+            $content += "### $title"
+            $content += Get-Content $ruleFile.FullName -Raw
+            $content += ""
+        }
+    }
+
+    # Append Language Rules
+    foreach ($lang in $Langs) {
+        if (Test-Path "rules\$lang") {
+            $langTitle = $lang.Substring(0,1).ToUpper() + $lang.Substring(1)
+            $content += ""
+            $content += "## $langTitle Rules"
+            foreach ($ruleFile in Get-ChildItem "rules\$lang\*.md") {
+                $title = (Get-Item $ruleFile).BaseName.Replace("-", " ").ToUpper()
+                $content += ""
+                $content += "### $title"
+                $content += Get-Content $ruleFile.FullName -Raw
+                $content += ""
+            }
+        }
+    }
+
+    $content | Out-File -FilePath $OutFile -Encoding utf8 -Force
+}
+
 # Prompt user if no choices are specified (interactive mode)
 if ($Profile -eq "" -and $Modules -eq "" -and $Skills -eq "" -and $Rules -eq "") {
     if ([Environment]::UserInteractive) {
@@ -43,70 +133,82 @@ if ($Profile -eq "" -and $Modules -eq "" -and $Skills -eq "" -and $Rules -eq "")
             $Profile = "full"
         }
 
-        $levelChoice = Read-Host "`nChoose target directory level: `n  1) User-level (~/.claude/ or ~/.cursor/) - Applies to all projects`n  2) Project-level (.claude/ or .cursorrules) - Applies only here`nSelection (1-2) [1]"
+        $levelChoice = Read-Host "`nChoose target directory level: `n  1) User-level (Globally configures agents) - Applies to all projects`n  2) Project-level (Configures current folder/repo) - Applies only here`nSelection (1-2) [1]"
         if ($levelChoice -eq "2") {
             $Level = "project"
         } else {
             $Level = "user"
+        }
+
+        $targetChoice = Read-Host "`nChoose target agent environment: `n  1) Claude Code (Standard .claude)`n  2) Cursor (.cursorrules)`n  3) Windsurf (.windsurfrules)`n  4) Copilot (.github/copilot-instructions.md)`n  5) All (Configure all active agents/IDEs in workspace)`nSelection (1-5) [1]"
+        switch ($targetChoice) {
+            "2" { $Target = "cursor" }
+            "3" { $Target = "windsurf" }
+            "4" { $Target = "copilot" }
+            "5" { $Target = "all" }
+            Default { $Target = "claude" }
         }
     } else {
         $Profile = "full"
     }
 }
 
-# Determine target directory path
-$TargetDir = ""
-if ($Target -eq "claude") {
-    if ($Level -eq "user") {
-        $TargetDir = Join-Path $Home ".claude"
+# Run minimal path (rules & workflows only, zero dependencies)
+if ($Profile -eq "minimal" -or $Target -ne "claude") {
+    Write-Host "[EFA] Auto-detecting project tech stack..." -ForegroundColor Blue
+    $detectedLangs = Detect-Stack
+    if ($detectedLangs.Count -gt 0) {
+        Write-Host "[EFA] Detected languages: $($detectedLangs -join ', ')" -ForegroundColor Green
     } else {
-        $TargetDir = Join-Path $ScriptDir ".claude"
+        Write-Host "[EFA] No language manifest files found. Copying common rules only." -ForegroundColor Yellow
     }
-} elseif ($Target -eq "cursor") {
-    if ($Level -eq "user") {
-        $TargetDir = Join-Path $Home ".cursor"
+
+    $targets = @()
+    if ($Target -eq "all") {
+        $targets = @("claude", "cursor", "windsurf", "copilot")
     } else {
-        $TargetDir = $ScriptDir
-    }
-} else {
-    Write-Error "Unsupported target environment '$Target'. Only 'claude' or 'cursor' are supported."
-    exit 1
-}
-
-# Minimal Profile execution (Zero-dependency copy)
-if ($Profile -eq "minimal") {
-    Write-Host "[EFA] Running minimal installation to '$TargetDir'..." -ForegroundColor Green
-    if ($DryRun) {
-        Write-Host "[Dry Run] Would create directories under $TargetDir" -ForegroundColor Yellow
-        Write-Host "[Dry Run] Would copy rules/common to $TargetDir\rules" -ForegroundColor Yellow
-        Write-Host "[Dry Run] Would copy workflows to $TargetDir\workflows" -ForegroundColor Yellow
-        Write-Host "[EFA] Dry run complete!" -ForegroundColor Green
-        exit 0
+        $targets = @($Target)
     }
 
-    # Ensure directories exist
-    $null = New-Item -ItemType Directory -Force -Path (Join-Path $TargetDir "rules")
-    $null = New-Item -ItemType Directory -Force -Path (Join-Path $TargetDir "workflows")
+    foreach ($env in $targets) {
+        if ($env -eq "claude") {
+            $TargetDir = ""
+            if ($Level -eq "user") { $TargetDir = Join-Path $Home ".claude" } else { $TargetDir = Join-Path $ScriptDir ".claude" }
+            
+            Write-Host "[EFA] Installing rules and workflows to Claude directory '$TargetDir'..." -ForegroundColor Green
+            if ($DryRun) {
+                Write-Host "[Dry Run] Would create Claude folders and copy files under $TargetDir" -ForegroundColor Yellow
+            } else {
+                $null = New-Item -ItemType Directory -Force -Path (Join-Path $TargetDir "rules")
+                $null = New-Item -ItemType Directory -Force -Path (Join-Path $TargetDir "workflows")
 
-    # Copy rules
-    Write-Host "[EFA] Copying rules..." -ForegroundColor Blue
-    if (Test-Path (Join-Path $ScriptDir "rules\common")) {
-        Copy-Item -Path (Join-Path $ScriptDir "rules\common") -Destination (Join-Path $TargetDir "rules\") -Recurse -Force
-    }
-    foreach ($lang in "typescript", "python", "golang", "rust", "java") {
-        if (Test-Path (Join-Path $ScriptDir "rules\$lang")) {
-            Copy-Item -Path (Join-Path $ScriptDir "rules\$lang") -Destination (Join-Path $TargetDir "rules\") -Recurse -Force
+                if (Test-Path "rules\common") {
+                    Copy-Item -Path "rules\common" -Destination (Join-Path $TargetDir "rules\") -Recurse -Force
+                }
+                foreach ($lang in $detectedLangs) {
+                    if (Test-Path "rules\$lang") {
+                        Copy-Item -Path "rules\$lang" -Destination (Join-Path $TargetDir "rules\") -Recurse -Force
+                    }
+                }
+                if (Test-Path "workflows") {
+                    Copy-Item -Path "workflows\*" -Destination (Join-Path $TargetDir "workflows\") -Recurse -Force
+                }
+            }
+        } elseif ($env -eq "cursor") {
+            $TargetFile = ""
+            if ($Level -eq "user") { $TargetFile = Join-Path $Home ".cursorrules" } else { $TargetFile = Join-Path $ScriptDir ".cursorrules" }
+            Generate-ConsolidatedRules -OutFile $TargetFile -Langs $detectedLangs
+        } elseif ($env -eq "windsurf") {
+            $TargetFile = ""
+            if ($Level -eq "user") { $TargetFile = Join-Path $Home ".windsurfrules" } else { $TargetFile = Join-Path $ScriptDir ".windsurfrules" }
+            Generate-ConsolidatedRules -OutFile $TargetFile -Langs $detectedLangs
+        } elseif ($env -eq "copilot") {
+            $TargetFile = Join-Path $ScriptDir ".github\copilot-instructions.md"
+            Generate-ConsolidatedRules -OutFile $TargetFile -Langs $detectedLangs
         }
     }
 
-    # Copy workflows
-    Write-Host "[EFA] Copying workflows..." -ForegroundColor Blue
-    if (Test-Path (Join-Path $ScriptDir "workflows")) {
-        Copy-Item -Path (Join-Path $ScriptDir "workflows\*") -Destination (Join-Path $TargetDir "workflows\") -Recurse -Force
-    }
-
-    Write-Host "[EFA] Minimal installation complete!" -ForegroundColor Green
-    Write-Host "Files installed at: $TargetDir" -ForegroundColor Yellow
+    Write-Host "[EFA] Installation complete!" -ForegroundColor Green
     exit 0
 }
 
