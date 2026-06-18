@@ -1,6 +1,6 @@
 ---
 name: workspace-surface-audit
-description: Audit the active repo, MCP servers, plugins, connectors, env surfaces, and harness setup, then recommend the highest-value EFA-native skills, hooks, agents, and operator workflows. Use when the user wants help setting up Everything For Ai or understanding what capabilities are actually available in their environment.
+description: Audit the active repo, MCP servers, plugins, connectors, env surfaces, and harness setup, then recommend the highest-value EFA-native skills, hooks, agents, and operator workflows. Use when the user wants help setting up Claude Code or understanding what capabilities are actually available in their environment.
 metadata:
   origin: EFA
 ---
@@ -13,7 +13,7 @@ This is the EFA-native answer to setup-audit plugins. It does not modify files u
 
 ## When to Use
 
-- User says "set up Everything For Ai", "recommend automations", "what plugins or MCPs should I use?", or "what am I missing?"
+- User says "set up Claude Code", "recommend automations", "what plugins or MCPs should I use?", or "what am I missing?"
 - Auditing a machine or repo before installing more skills, hooks, or connectors
 - Comparing official marketplace plugins against EFA-native coverage
 - Reviewing `.env`, `.mcp.json`, plugin settings, or connected-app surfaces to find missing workflow layers

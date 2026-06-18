@@ -22,7 +22,7 @@ fi
 if command -v pgrep >/dev/null 2>&1; then
   if pgrep -f "${HOME}.*observer-loop\\.sh" >/dev/null 2>&1; then
     echo "Refusing to migrate: observer-loop.sh is running." >&2
-    echo "Exit all Everything For Ai sessions, then re-run." >&2
+    echo "Exit all Claude Code sessions, then re-run." >&2
     exit 1
   fi
 else

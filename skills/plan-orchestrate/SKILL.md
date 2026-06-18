@@ -47,7 +47,7 @@ Where `{ORCH_CMD}` is determined in Phase 0 (see below). The command string in t
 
 Two install forms determine the prefix on **both** the slash command and every agent name. The two MUST stay in sync — one form per output, never mixed:
 
-Let `<claude-home>` denote the Everything For Ai home directory: `~/.claude` on macOS/Linux, `%USERPROFILE%\.claude` on Windows. Resolve it the way the host platform resolves the user home directory (do not hardcode `~`).
+Let `<claude-home>` denote the Claude Code home directory: `~/.claude` on macOS/Linux, `%USERPROFILE%\.claude` on Windows. Resolve it the way the host platform resolves the user home directory (do not hardcode `~`).
 
 | Form | Detection | `{ORCH_CMD}` | Agent name format |
 |---|---|---|---|

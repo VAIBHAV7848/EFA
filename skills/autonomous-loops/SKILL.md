@@ -1,6 +1,6 @@
 ---
 name: autonomous-loops
-description: "Patterns and architectures for autonomous Everything For Ai loops — from simple sequential pipelines to RFC-driven multi-agent DAG systems."
+description: "Patterns and architectures for autonomous Claude Code loops — from simple sequential pipelines to RFC-driven multi-agent DAG systems."
 metadata:
   origin: EFA
 ---
@@ -12,7 +12,7 @@ metadata:
 > should be authored there, while this skill remains available to avoid
 > breaking existing workflows.
 
-Patterns, architectures, and reference implementations for running Everything For Ai autonomously in loops. Covers everything from simple `claude -p` pipelines to full RFC-driven multi-agent DAG orchestration.
+Patterns, architectures, and reference implementations for running Claude Code autonomously in loops. Covers everything from simple `claude -p` pipelines to full RFC-driven multi-agent DAG orchestration.
 
 ## When to Use
 
@@ -46,7 +46,7 @@ From simplest to most sophisticated:
 
 > If you can't figure out a loop like this, it means you can't even drive the LLM to fix your code in interactive mode.
 
-The `claude -p` flag runs Everything For Ai non-interactively with a prompt, exits when done. Chain calls to build a pipeline:
+The `claude -p` flag runs Claude Code non-interactively with a prompt, exits when done. Chain calls to build a pipeline:
 
 ```bash
 #!/bin/bash
@@ -168,7 +168,7 @@ PROMPT 1 (Orchestrator)              PROMPT 2 (Sub-Agents)
    - A snapshot of existing iterations (for uniqueness)
 4. **Wave Management** — For infinite mode, deploys waves of 3-5 agents until context is exhausted
 
-### Implementation via Everything For Ai Commands
+### Implementation via Claude Code Commands
 
 Create `.claude/commands/infinite.md`:
 
@@ -211,7 +211,7 @@ Don't rely on agents to self-differentiate. The orchestrator **assigns** each ag
 
 ## 4. Continuous Claude PR Loop
 
-**A production-grade shell script** that runs Everything For Ai in a continuous loop, creating PRs, waiting for CI, and merging automatically. Created by AnandChowdhary (credit: @AnandChowdhary).
+**A production-grade shell script** that runs Claude Code in a continuous loop, creating PRs, waiting for CI, and merging automatically. Created by AnandChowdhary (credit: @AnandChowdhary).
 
 ### Core Loop
 

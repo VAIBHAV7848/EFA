@@ -175,7 +175,7 @@ GAN_EVAL_CRITERIA="functionality,performance,security" \
 ./scripts/gan-harness.sh "Build a REST API for task management"
 ```
 
-### Via Everything For Ai (Manual)
+### Via Claude Code (Manual)
 
 ```bash
 # Step 1: Plan

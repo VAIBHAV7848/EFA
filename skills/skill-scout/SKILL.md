@@ -57,14 +57,14 @@ grep -RilE "keyword|synonym" ~/.claude/skills ~/.claude/plugins/marketplaces 2>/
 Use available GitHub and web search tools. Prefer concise queries:
 
 ```bash
-gh search repos "Everything For Ai skill keyword" --limit 10 --sort stars
+gh search repos "claude code skill keyword" --limit 10 --sort stars
 gh search code "name: keyword" --filename SKILL.md --limit 10
 ```
 
 For web search, use at most three targeted queries such as:
 
 ```text
-"Everything For Ai skill" keyword
+"claude code skill" keyword
 "SKILL.md" keyword
 "everything-for-ai" keyword
 ```

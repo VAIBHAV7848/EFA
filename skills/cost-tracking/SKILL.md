@@ -1,13 +1,13 @@
 ---
 name: cost-tracking
-description: Track and report Everything For Ai token usage, spending, and budgets from a local cost-tracking database. Use when the user asks about costs, spending, usage, tokens, budgets, or cost breakdowns by project, tool, session, or date.
+description: Track and report Claude Code token usage, spending, and budgets from a local cost-tracking database. Use when the user asks about costs, spending, usage, tokens, budgets, or cost breakdowns by project, tool, session, or date.
 metadata:
   origin: community
 ---
 
 # Cost Tracking
 
-Use this skill to analyze Everything For Ai cost and usage history from a local SQLite
+Use this skill to analyze Claude Code cost and usage history from a local SQLite
 database. It is intended for users who already have a cost-tracking hook or
 plugin writing usage rows to `~/.claude-cost-tracker/usage.db`.
 
@@ -46,7 +46,7 @@ interaction. Column names vary by tracker, but the examples below assume:
 | `input_tokens` | Input token count, when recorded |
 | `output_tokens` | Output token count, when recorded |
 | `cost_usd` | Precomputed cost in USD |
-| `session_id` | Everything For Ai session identifier |
+| `session_id` | Claude Code session identifier |
 | `model` | Model used for the event |
 
 Prefer `cost_usd` over hand-calculating pricing. Model prices and cache pricing

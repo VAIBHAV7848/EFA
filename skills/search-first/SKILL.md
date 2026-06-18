@@ -95,12 +95,12 @@ Agent(subagent_type="general-purpose", prompt="
   Language/framework: [LANG]
   Constraints: [ANY]
 
-  Search: npm/PyPI, MCP servers, Everything For Ai skills, GitHub
+  Search: npm/PyPI, MCP servers, Claude Code skills, GitHub
   Return: Structured comparison with recommendation
 ")
 ```
 
-Older Everything For Ai docs may call this `Task(...)`; use the current agent/subagent
+Older Claude Code docs may call this `Task(...)`; use the current agent/subagent
 tool name exposed by the active harness.
 
 ## Search Shortcuts by Category

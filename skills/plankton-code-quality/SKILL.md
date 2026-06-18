@@ -7,7 +7,7 @@ metadata:
 
 # Plankton Code Quality Skill
 
-Integration reference for Plankton (credit: @alxfazio), a write-time code quality enforcement system for Everything For Ai. Plankton runs formatters and linters on every file edit via PostToolUse hooks, then spawns Claude subprocesses to fix violations the agent didn't catch.
+Integration reference for Plankton (credit: @alxfazio), a write-time code quality enforcement system for Claude Code. Plankton runs formatters and linters on every file edit via PostToolUse hooks, then spawns Claude subprocesses to fix violations the agent didn't catch.
 
 ## When to Use
 
@@ -20,7 +20,7 @@ Integration reference for Plankton (credit: @alxfazio), a write-time code qualit
 
 ### Three-Phase Architecture
 
-Every time Everything For Ai edits or writes a file, Plankton's `multi_linter.sh` PostToolUse hook runs:
+Every time Claude Code edits or writes a file, Plankton's `multi_linter.sh` PostToolUse hook runs:
 
 ```
 Phase 1: Auto-Format (Silent)
@@ -82,11 +82,11 @@ brew install jaq ruff uv
 # Install Python linters
 uv sync --all-extras
 
-# Start Everything For Ai — hooks activate automatically
+# Start Claude Code — hooks activate automatically
 claude
 ```
 
-No install command, no plugin config. The hooks in `.claude/settings.json` are picked up automatically when you run Everything For Ai in the Plankton directory.
+No install command, no plugin config. The hooks in `.claude/settings.json` are picked up automatically when you run Claude Code in the Plankton directory.
 
 ### Per-Project Integration
 

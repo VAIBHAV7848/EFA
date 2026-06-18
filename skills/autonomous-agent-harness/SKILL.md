@@ -1,13 +1,13 @@
 ---
 name: autonomous-agent-harness
-description: Transform Everything For Ai into a fully autonomous agent system with persistent memory, scheduled operations, computer use, and task queuing. Replaces standalone agent frameworks (Hermes, AutoGPT) by leveraging Everything For Ai's native crons, dispatch, MCP tools, and memory. Use when the user wants continuous autonomous operation, scheduled tasks, or a self-directing agent loop.
+description: Transform Claude Code into a fully autonomous agent system with persistent memory, scheduled operations, computer use, and task queuing. Replaces standalone agent frameworks (Hermes, AutoGPT) by leveraging Claude Code's native crons, dispatch, MCP tools, and memory. Use when the user wants continuous autonomous operation, scheduled tasks, or a self-directing agent loop.
 metadata:
   origin: EFA
 ---
 
 # Autonomous Agent Harness
 
-Turn Everything For Ai into a persistent, self-directing agent system using only native features and MCP servers.
+Turn Claude Code into a persistent, self-directing agent system using only native features and MCP servers.
 
 ## Consent and Safety Boundaries
 
@@ -28,7 +28,7 @@ Prefer dry-run plans and local queue files before enabling recurring or event-dr
 
 ```
 ┌──────────────────────────────────────────────────────────────┐
-│                    Everything For Ai Runtime                        │
+│                    Claude Code Runtime                        │
 │                                                              │
 │  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌─────────────┐ │
 │  │  Crons   │  │ Dispatch │  │ Memory   │  │ Computer    │ │
@@ -56,7 +56,7 @@ Prefer dry-run plans and local queue files before enabling recurring or event-dr
 
 ### 1. Persistent Memory
 
-Use Everything For Ai's built-in memory system enhanced with MCP memory server for structured data.
+Use Claude Code's built-in memory system enhanced with MCP memory server for structured data.
 
 **Built-in memory** (`~/.claude/projects/*/memory/`):
 - User preferences, feedback, project context
@@ -85,7 +85,7 @@ Use mcp__memory__add_observations for new facts about known entities
 
 ### 2. Scheduled Operations (Crons)
 
-Use Everything For Ai's scheduled tasks to create recurring agent operations.
+Use Claude Code's scheduled tasks to create recurring agent operations.
 
 **Setting up a cron:**
 
@@ -94,7 +94,7 @@ Use Everything For Ai's scheduled tasks to create recurring agent operations.
 mcp__scheduled-tasks__create_scheduled_task({
   name: "daily-pr-review",
   schedule: "0 9 * * 1-5",  # 9 AM weekdays
-  prompt: "Review all open PRs in affaan-m/everything-for-ai. For each: check CI status, review changes, flag issues. Post summary to memory.",
+  prompt: "Review all open PRs in VAIBHAV7848/EFA. For each: check CI status, review changes, flag issues. Post summary to memory.",
   project_dir: "/path/to/repo"
 })
 
@@ -114,7 +114,7 @@ echo "Review open PRs and summarize" | claude -p --project /path/to/repo
 
 ### 3. Dispatch / Remote Agents
 
-Trigger Everything For Ai agents remotely for event-driven workflows.
+Trigger Claude Code agents remotely for event-driven workflows.
 
 **Dispatch patterns:**
 
@@ -176,7 +176,7 @@ description: Persistent task queue for autonomous operation
 
 | Hermes Component | EFA Equivalent | How |
 |------------------|---------------|-----|
-| Gateway/Router | Everything For Ai dispatch + crons | Scheduled tasks trigger agent sessions |
+| Gateway/Router | Claude Code dispatch + crons | Scheduled tasks trigger agent sessions |
 | Memory System | Claude memory + MCP memory server | Built-in persistence + knowledge graph |
 | Tool Registry | MCP servers | Dynamically loaded tool providers |
 | Orchestration | EFA skills + agents | Skill definitions direct agent behavior |

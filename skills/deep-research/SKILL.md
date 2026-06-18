@@ -129,7 +129,7 @@ Sub-questions investigated: [list]
 
 ## Parallel Research with Subagents
 
-For broad topics, use Everything For Ai's Task tool to parallelize:
+For broad topics, use Claude Code's Task tool to parallelize:
 
 ```
 Launch 3 research agents in parallel:

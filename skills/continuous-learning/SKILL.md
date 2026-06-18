@@ -15,11 +15,11 @@ metadata:
 
 ## Original v1 Documentation (archival)
 
-Automatically evaluates Everything For Ai sessions on end to extract reusable patterns that can be saved as learned skills.
+Automatically evaluates Claude Code sessions on end to extract reusable patterns that can be saved as learned skills.
 
 ## When to Activate
 
-- Setting up automatic pattern extraction from Everything For Ai sessions
+- Setting up automatic pattern extraction from Claude Code sessions
 - Configuring the Stop hook for session evaluation
 - Reviewing or curating learned skills in `~/.claude/skills/learned/`
 - Adjusting extraction thresholds or pattern categories
@@ -98,7 +98,7 @@ Add to your `~/.claude/settings.json`:
 
 ## Related
 
-- [The Longform Guide](https://x.com/affaanmustafa/status/2014040193557471352) - Section on continuous learning
+- [The Longform Guide](https://x.com/VAIBHAV7848/status/2014040193557471352) - Section on continuous learning
 - `/learn` command - Manual pattern extraction mid-session
 
 ---

@@ -159,7 +159,7 @@
     "devfleet": {
       "type": "http",
       "url": "http://localhost:18801/mcp",
-      "description": "Multi-agent orchestration — dispatch parallel Everything For Ai agents in isolated worktrees. Plan projects, auto-chain missions, read structured reports. Repo: https://github.com/LEC-AI/claude-devfleet"
+      "description": "Multi-agent orchestration — dispatch parallel Everything For Ai agents in isolated worktrees. Plan projects, auto-chain missions, read structured reports. Repo: https://github.com/LEC-AI/efa-devfleet"
     },
     "token-optimizer": {
       "command": "npx",

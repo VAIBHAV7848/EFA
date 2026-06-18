@@ -171,4 +171,4 @@ For advanced features (10k+ commits, team sharing, auto-PRs), use the [Skill Cre
 
 ---
 
-*Part of [Everything For Ai](https://github.com/affaan-m/everything-for-ai)*
+*Part of [Everything For Ai](https://github.com/VAIBHAV7848/EFA)*
