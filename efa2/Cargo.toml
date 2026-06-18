@@ -4,7 +4,7 @@ version = "0.1.0"
 edition = "2021"
 description = "EFA 2.0 — Agentic IDE control plane with TUI dashboard"
 license = "MIT"
-authors = ["VAIBHAV7848 Mustafa <me@VAIBHAV7848.com>"]
+authors = ["VAIBHAV7848 <me@VAIBHAV7848.com>"]
 repository = "https://github.com/VAIBHAV7848/EFA"
 
 [features]

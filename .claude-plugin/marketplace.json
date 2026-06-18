@@ -1,7 +1,7 @@
 {
   "name": "efa",
   "owner": {
-    "name": "VAIBHAV7848 Mustafa",
+    "name": "VAIBHAV7848",
     "email": "me@VAIBHAV7848.com"
   },
   "metadata": {
@@ -14,7 +14,7 @@
       "description": "Harness-native EFA operator layer - 67 agents, 271 skills, 92 legacy command shims, reusable hooks, rules, selective install profiles, and production-ready workflows for Claude Code, Codex, OpenCode, Cursor, and related agent harnesses",
       "version": "2.0.0",
       "author": {
-        "name": "VAIBHAV7848 Mustafa",
+        "name": "VAIBHAV7848",
         "email": "me@VAIBHAV7848.com"
       },
       "homepage": "https://efa.tools",

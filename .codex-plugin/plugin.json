@@ -3,7 +3,7 @@
   "version": "2.0.0",
   "description": "Harness-native EFA workflows for Codex: shared skills, production-ready MCP configs, and selective-install-aligned conventions for TDD, security scanning, code review, and autonomous development.",
   "author": {
-    "name": "VAIBHAV7848 Mustafa",
+    "name": "VAIBHAV7848",
     "email": "me@VAIBHAV7848.com",
     "url": "https://x.com/VAIBHAV7848"
   },
@@ -17,7 +17,7 @@
     "displayName": "EFA",
     "shortDescription": "249 EFA skills plus MCP configs for TDD, security, code review, and autonomous development.",
     "longDescription": "EFA is a harness-native operator system for Codex and adjacent agent harnesses. It packages reusable skills, MCP configs, TDD workflows, security scanning, code review, architecture decisions, operator workflows, and release gates in one installable plugin.",
-    "developerName": "VAIBHAV7848 Mustafa",
+    "developerName": "VAIBHAV7848",
     "category": "Coding",
     "capabilities": ["Interactive", "Read", "Write"],
     "websiteURL": "https://efa.tools",
