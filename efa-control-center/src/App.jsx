@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './index.css';
+import efaData from './data/efa-data.json';
 
 const SidebarItem = ({ icon, label, active, onClick }) => (
   <div 
@@ -61,26 +62,10 @@ function App() {
   const [activeTab, setActiveTab] = useState('Overview');
   const [searchQuery, setSearchQuery] = useState('');
   
-  // Mock Data for UI presentation
-  const mockAgents = Array.from({ length: 67 }).map((_, i) => ({
-    name: `Agent-${i+1}`,
-    description: 'Specialized domain agent for autonomous operations.',
-    command: `/agent-${i+1}`
-  }));
-  const mockSkills = Array.from({ length: 275 }).map((_, i) => ({
-    name: `Skill-${i+1}`,
-    description: 'Workflow pattern and domain knowledge.',
-    command: `npx efa install --skills Skill-${i+1}`
-  }));
-  const mockRules = ['python', 'react', 'go', 'rust', 'java', 'kotlin', 'cpp', 'ruby'].map(lang => ({
-    language: lang,
-    files: ['rules.md', 'patterns.md']
-  }));
+  const { agents, skills, commands, rules, shield } = efaData;
   
-  const filteredAgents = mockAgents.filter(a => a.name.toLowerCase().includes(searchQuery.toLowerCase()));
-  const filteredSkills = mockSkills.filter(s => s.name.toLowerCase().includes(searchQuery.toLowerCase()));
-
-
+  const filteredAgents = agents.filter(a => a.name.toLowerCase().includes(searchQuery.toLowerCase()));
+  const filteredSkills = skills.filter(s => s.name.toLowerCase().includes(searchQuery.toLowerCase()));
   return (
     <div style={{ display: 'flex', minHeight: '100vh', padding: '20px', gap: '20px' }}>
       {/* Sidebar */}
@@ -105,8 +90,8 @@ function App() {
         <div style={{ flex: 1 }}>
           <div style={{ fontSize: '0.75rem', textTransform: 'uppercase', color: 'var(--text-muted)', letterSpacing: '1px', marginBottom: '12px', paddingLeft: '16px' }}>Core</div>
           <SidebarItem icon="📊" label="Overview" active={activeTab === 'Overview'} onClick={() => setActiveTab('Overview')} />
-          <SidebarItem icon="🤖" label="Agents (67)" active={activeTab === 'Agents'} onClick={() => setActiveTab('Agents')} />
-          <SidebarItem icon="⚡" label="Skills (271)" active={activeTab === 'Skills'} onClick={() => setActiveTab('Skills')} />
+          <SidebarItem icon="🤖" label={`Agents (${agents.length})`} active={activeTab === 'Agents'} onClick={() => setActiveTab('Agents')} />
+          <SidebarItem icon="⚡" label={`Skills (${skills.length})`} active={activeTab === 'Skills'} onClick={() => setActiveTab('Skills')} />
           
           <div style={{ fontSize: '0.75rem', textTransform: 'uppercase', color: 'var(--text-muted)', letterSpacing: '1px', marginTop: '32px', marginBottom: '12px', paddingLeft: '16px' }}>Security</div>
           <SidebarItem icon="🛡️" label="AgentShield" active={activeTab === 'AgentShield'} onClick={() => setActiveTab('AgentShield')} />
@@ -162,8 +147,8 @@ function App() {
           <>
             {/* Stats Row */}
             <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
-              <StatCard title="Active Agents" value="67" icon="🤖" trend="Ready for delegation" />
-              <StatCard title="Loaded Skills" value="271" icon="⚡" trend="+4 new this week" />
+              <StatCard title="Active Agents" value={agents.length.toString()} icon="🤖" trend="Ready for delegation" />
+              <StatCard title="Loaded Skills" value={skills.length.toString()} icon="⚡" trend="+4 new this week" />
               <StatCard title="Security Score" value="100%" icon="🛡️" trend="AgentShield Active" />
               <StatCard title="Test Coverage" value="84%" icon="✅" trend="Passing TDD Rule" />
             </div>
@@ -269,10 +254,10 @@ function App() {
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', maxWidth: '600px', margin: '0 auto', width: '100%' }}>
               {[
-                { q: "Is CLAUDE.md present?", a: "✅" },
-                { q: "Are hooks using eval?", a: "❌" },
-                { q: "Are MCP tokens hardcoded?", a: "❌" },
-                { q: "Does .gitignore cover .efa-vector-memory.json?", a: "✅" }
+                { q: "Is CLAUDE.md present?", a: shield.claudeMdPresent },
+                { q: "Are hooks using eval?", a: shield.hooksUseEval },
+                { q: "Are MCP tokens hardcoded?", a: shield.mcpTokensHardcoded },
+                { q: "Does .gitignore cover .efa-vector-memory.json?", a: shield.memoryInGitignore }
               ].map((item, i) => (
                 <div key={i} style={{ display: 'flex', justifyContent: 'space-between', padding: '16px', background: 'rgba(0,0,0,0.2)', borderRadius: '12px', border: '1px solid var(--border-glass)' }}>
                   <span style={{ fontWeight: 500 }}>{item.q}</span>
@@ -287,7 +272,7 @@ function App() {
           <div className="glass-panel" style={{ flex: 1, padding: '32px', display: 'flex', flexDirection: 'column' }}>
             <h2 className="heading-display" style={{ marginBottom: '24px' }}>Language Rules Engine</h2>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '16px' }}>
-              {mockRules.map((rule, i) => (
+              {rules.map((rule, i) => (
                 <div key={i} style={{ padding: '20px', background: 'var(--bg-card)', borderRadius: '12px', border: '1px solid var(--border-glass)', textAlign: 'center', cursor: 'pointer', transition: 'all 0.2s' }} onMouseOver={e => e.currentTarget.style.transform = 'translateY(-5px)'} onMouseOut={e => e.currentTarget.style.transform = 'none'}>
                   <div style={{ fontSize: '2.5rem', marginBottom: '12px' }}>🌐</div>
                   <h3 style={{ textTransform: 'capitalize', marginBottom: '8px' }}>{rule.language}</h3>

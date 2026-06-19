@@ -355,7 +355,10 @@
     "build:opencode": "node scripts/build-opencode.js",
     "prepack": "npm run build:opencode",
     "dashboard": "python3 ./efa_dashboard.py",
-    "dashboard:web": "node scripts/dashboard-web.js"
+    "dashboard:web": "node scripts/dashboard-web.js",
+    "dashboard:data": "node scripts/generate-dashboard-data.js",
+    "dashboard:dev": "npm run dashboard:data && cd efa-control-center && npm run dev",
+    "dashboard:build": "npm run dashboard:data && cd efa-control-center && npm run build"
   },
   "dependencies": {
     "@iarna/toml": "^2.2.5",
