@@ -358,7 +358,7 @@
     "dashboard:web": "node scripts/dashboard-web.js",
     "dashboard:data": "node scripts/generate-dashboard-data.js",
     "dashboard:dev": "npm run dashboard:data && cd efa-control-center && npm run dev",
-    "dashboard:build": "npm run dashboard:data && cd efa-control-center && npm run build"
+    "dashboard:build": "npm run dashboard:data && cd efa-control-center && npm install --silent && npm run build"
   },
   "dependencies": {
     "@iarna/toml": "^2.2.5",

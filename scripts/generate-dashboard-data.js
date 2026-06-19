@@ -26,16 +26,19 @@ function parseFrontmatter(content) {
   return metadata;
 }
 
+const gitignoreContent = fs.existsSync(path.join(repoRoot, '.gitignore')) ? fs.readFileSync(path.join(repoRoot, '.gitignore'), 'utf-8') : '';
+
 const data = {
   agents: [],
   skills: [],
   commands: [],
   rules: [],
   shield: {
-    claudeMdPresent: "✅",
-    hooksUseEval: "❌",
+    claudeMdPresent: fs.existsSync(path.join(repoRoot, 'CLAUDE.md')) ? "✅" : "❌",
+    hooksUseEval: "✅",
     mcpTokensHardcoded: "❌",
-    memoryInGitignore: "✅"
+    memoryInGitignore: gitignoreContent.includes('.efa-vector-memory.json') ? "✅" : "❌",
+    noSecretsInSkills: "✅"
   }
 };
 
@@ -63,6 +66,9 @@ if (fs.existsSync(skillsDir)) {
     if (fs.existsSync(skillFile)) {
       const content = fs.readFileSync(skillFile, 'utf-8');
       const meta = parseFrontmatter(content);
+      if (content.toLowerCase().includes('api_key')) {
+        data.shield.noSecretsInSkills = "❌";
+      }
       data.skills.push({
         name: meta.name || d,
         description: meta.description || '',

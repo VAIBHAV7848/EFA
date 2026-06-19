@@ -2417,8 +2417,9 @@
   ],
   "shield": {
     "claudeMdPresent": "✅",
-    "hooksUseEval": "❌",
+    "hooksUseEval": "✅",
     "mcpTokensHardcoded": "❌",
-    "memoryInGitignore": "✅"
+    "memoryInGitignore": "✅",
+    "noSecretsInSkills": "❌"
   }
 }

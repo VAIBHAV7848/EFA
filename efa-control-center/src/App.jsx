@@ -66,6 +66,20 @@ function App() {
   
   const filteredAgents = agents.filter(a => a.name.toLowerCase().includes(searchQuery.toLowerCase()));
   const filteredSkills = skills.filter(s => s.name.toLowerCase().includes(searchQuery.toLowerCase()));
+
+  const shieldChecks = [
+    { q: "Is CLAUDE.md present?",              a: shield.claudeMdPresent },
+    { q: "Are hooks using eval()?",            a: shield.hooksUseEval },
+    { q: "Are MCP tokens hardcoded?",          a: shield.mcpTokensHardcoded },
+    { q: "Does .gitignore cover memory file?", a: shield.memoryInGitignore },
+    { q: "No secrets in skills?",              a: shield.noSecretsInSkills }
+  ];
+  const passed = shieldChecks.filter(c => c.a === '✅').length;
+  const score = Math.round((passed / shieldChecks.length) * 100);
+  const scoreColor = score >= 80 ? 'var(--success-color)' 
+                   : score >= 60 ? '#f59e0b' 
+                   : 'var(--error-color)';
+
   return (
     <div style={{ display: 'flex', minHeight: '100vh', padding: '20px', gap: '20px' }}>
       {/* Sidebar */}
@@ -249,16 +263,11 @@ function App() {
         {activeTab === 'AgentShield' && (
           <div className="glass-panel" style={{ flex: 1, padding: '32px', display: 'flex', flexDirection: 'column' }}>
             <div style={{ marginBottom: '32px', textAlign: 'center' }}>
-              <h2 className="heading-display" style={{ color: 'var(--success-color)', fontSize: '3rem' }}>100/100</h2>
+              <h2 className="heading-display" style={{ color: scoreColor, fontSize: '3rem' }}>{score}/100</h2>
               <p style={{ color: 'var(--text-muted)' }}>Overall Threat Score</p>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', maxWidth: '600px', margin: '0 auto', width: '100%' }}>
-              {[
-                { q: "Is CLAUDE.md present?", a: shield.claudeMdPresent },
-                { q: "Are hooks using eval?", a: shield.hooksUseEval },
-                { q: "Are MCP tokens hardcoded?", a: shield.mcpTokensHardcoded },
-                { q: "Does .gitignore cover .efa-vector-memory.json?", a: shield.memoryInGitignore }
-              ].map((item, i) => (
+              {shieldChecks.map((item, i) => (
                 <div key={i} style={{ display: 'flex', justifyContent: 'space-between', padding: '16px', background: 'rgba(0,0,0,0.2)', borderRadius: '12px', border: '1px solid var(--border-glass)' }}>
                   <span style={{ fontWeight: 500 }}>{item.q}</span>
                   <span>{item.a}</span>

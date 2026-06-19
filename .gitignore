@@ -8,3 +8,14 @@
 
 # Ignore local compatibility symlink
 .agent
+
+# EFA runtime files (generated, not for version control)
+.efa-vector-memory.json
+.efa-evolution-history.json
+.efa-heal-state.json
+.efa-shield-report.json
+.efa-config.json
+
+# EFA web dashboard build artifacts
+efa-control-center/dist/
+efa-control-center/node_modules/
