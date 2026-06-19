@@ -7,7 +7,7 @@ metadata:
 
 # F# Testing Patterns
 
-Comprehensive testing patterns for F# applications using xUnit, FsUnit, Unquote, FsCheck, and modern .NET testing practices.
+Testing patterns for F# applications using xUnit, FsUnit, Unquote, FsCheck, and modern .NET testing practices.
 
 ## When to Activate
 

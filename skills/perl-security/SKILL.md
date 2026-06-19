@@ -1,13 +1,13 @@
 ---
 name: perl-security
-description: Comprehensive Perl security covering taint mode, input validation, safe process execution, DBI parameterized queries, web security (XSS/SQLi/CSRF), and perlcritic security policies.
+description: Perl security covering taint mode, input validation, safe process execution, DBI parameterized queries, web security (XSS/SQLi/CSRF), and perlcritic security policies.
 metadata:
   origin: EFA
 ---
 
 # Perl Security Patterns
 
-Comprehensive security guidelines for Perl applications covering input validation, injection prevention, and secure coding practices.
+Security guidelines for Perl applications covering input validation, injection prevention, and secure coding practices.
 
 ## When to Activate
 

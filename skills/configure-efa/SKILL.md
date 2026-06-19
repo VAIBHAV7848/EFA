@@ -118,7 +118,7 @@ For each selected category, print the full list of skills below and ask the user
 | `laravel-verification` | Laravel verification: linting, static analysis, tests, security scans |
 | `frontend-patterns` | React, Next.js, state management, performance, UI patterns |
 | `frontend-slides` | Zero-dependency HTML presentations, style previews, and PPTX-to-web conversion |
-| `golang-patterns` | Idiomatic Go patterns, conventions for robust Go applications |
+| `golang-patterns` | Idiomatic Go patterns, conventions for solid Go applications |
 | `golang-testing` | Go testing: table-driven tests, subtests, benchmarks, fuzzing |
 | `java-coding-standards` | Java coding standards for Spring Boot and Quarkus: naming, immutability, Optional, streams, CDI |
 | `python-patterns` | Pythonic idioms, PEP 8, type hints, best practices |

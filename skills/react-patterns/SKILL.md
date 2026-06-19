@@ -7,7 +7,7 @@ metadata:
 
 # React Patterns
 
-Idiomatic React 18/19 patterns for building robust, accessible, performant component trees.
+Idiomatic React 18/19 patterns for building solid, accessible, performant component trees.
 
 ## When to Activate
 

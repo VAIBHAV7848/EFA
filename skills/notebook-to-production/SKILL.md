@@ -1,6 +1,6 @@
 ---
 name: "notebook-to-production"
-description: "Patterns for converting exploratory Jupyter notebooks into robust, maintainable Python scripts."
+description: "Patterns for converting exploratory Jupyter notebooks into solid, maintainable Python scripts."
 version: "1.0.0"
 ---
 

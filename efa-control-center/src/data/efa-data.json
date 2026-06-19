@@ -744,7 +744,7 @@
     },
     {
       "name": "dotnet-patterns",
-      "description": "Idiomatic C# and .NET patterns, conventions, dependency injection, async/await, and best practices for building robust, maintainable .NET applications.",
+      "description": "Idiomatic C# and .NET patterns, conventions, dependency injection, async/await, and best practices for building solid, maintainable .NET applications.",
       "command": "npx efa install --skills dotnet-patterns"
     },
     {
@@ -789,7 +789,7 @@
     },
     {
       "name": "error-handling",
-      "description": "Patterns for robust error handling across TypeScript, Python, and Go. Covers typed errors, error boundaries, retries, circuit breakers, and user-facing error messages.",
+      "description": "Patterns for solid error handling across TypeScript, Python, and Go. Covers typed errors, error boundaries, retries, circuit breakers, and user-facing error messages.",
       "command": "npx efa install --skills error-handling"
     },
     {
@@ -889,7 +889,7 @@
     },
     {
       "name": "golang-patterns",
-      "description": "Idiomatic Go patterns, best practices, and conventions for building robust, efficient, and maintainable Go applications.",
+      "description": "Idiomatic Go patterns, best practices, and conventions for building solid, efficient, and maintainable Go applications.",
       "command": "npx efa install --skills golang-patterns"
     },
     {
@@ -1059,7 +1059,7 @@
     },
     {
       "name": "kotlin-patterns",
-      "description": "Idiomatic Kotlin patterns, best practices, and conventions for building robust, efficient, and maintainable Kotlin applications with coroutines, null safety, and DSL builders.",
+      "description": "Idiomatic Kotlin patterns, best practices, and conventions for building solid, efficient, and maintainable Kotlin applications with coroutines, null safety, and DSL builders.",
       "command": "npx efa install --skills kotlin-patterns"
     },
     {
@@ -1234,7 +1234,7 @@
     },
     {
       "name": "notebook-to-production",
-      "description": "Patterns for converting exploratory Jupyter notebooks into robust, maintainable Python scripts.",
+      "description": "Patterns for converting exploratory Jupyter notebooks into solid, maintainable Python scripts.",
       "command": "npx efa install --skills notebook-to-production"
     },
     {
@@ -1294,12 +1294,12 @@
     },
     {
       "name": "perl-patterns",
-      "description": "Modern Perl 5.36+ idioms, best practices, and conventions for building robust, maintainable Perl applications.",
+      "description": "Modern Perl 5.36+ idioms, best practices, and conventions for building solid, maintainable Perl applications.",
       "command": "npx efa install --skills perl-patterns"
     },
     {
       "name": "perl-security",
-      "description": "Comprehensive Perl security covering taint mode, input validation, safe process execution, DBI parameterized queries, web security (XSS/SQLi/CSRF), and perlcritic security policies.",
+      "description": "Perl security covering taint mode, input validation, safe process execution, DBI parameterized queries, web security (XSS/SQLi/CSRF), and perlcritic security policies.",
       "command": "npx efa install --skills perl-security"
     },
     {
@@ -1369,7 +1369,7 @@
     },
     {
       "name": "python-patterns",
-      "description": "Pythonic idioms, PEP 8 standards, type hints, and best practices for building robust, efficient, and maintainable Python applications.",
+      "description": "Pythonic idioms, PEP 8 standards, type hints, and best practices for building solid, efficient, and maintainable Python applications.",
       "command": "npx efa install --skills python-patterns"
     },
     {
@@ -1379,7 +1379,7 @@
     },
     {
       "name": "pytorch-patterns",
-      "description": "PyTorch deep learning patterns and best practices for building robust, efficient, and reproducible training pipelines, model architectures, and data loading.",
+      "description": "PyTorch deep learning patterns and best practices for building solid, efficient, and reproducible training pipelines, model architectures, and data loading.",
       "command": "npx efa install --skills pytorch-patterns"
     },
     {

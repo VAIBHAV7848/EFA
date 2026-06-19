@@ -72,7 +72,7 @@ onLeave(event: AnimationCallbackEvent) {
 
 ## 2. Advanced CSS Animations
 
-CSS offers robust tools for advanced animation sequences.
+CSS offers solid tools for advanced animation sequences.
 
 ### Animating State and Styles
 

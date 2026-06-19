@@ -1,13 +1,13 @@
 ---
 name: dotnet-patterns
-description: Idiomatic C# and .NET patterns, conventions, dependency injection, async/await, and best practices for building robust, maintainable .NET applications.
+description: Idiomatic C# and .NET patterns, conventions, dependency injection, async/await, and best practices for building solid, maintainable .NET applications.
 metadata:
   origin: EFA
 ---
 
 # .NET Development Patterns
 
-Idiomatic C# and .NET patterns for building robust, performant, and maintainable applications.
+Idiomatic C# and .NET patterns for building solid, performant, and maintainable applications.
 
 ## When to Activate
 

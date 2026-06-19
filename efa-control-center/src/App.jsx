@@ -75,6 +75,7 @@ function App() {
     { q: "No secrets in skills?",              a: shield.noSecretsInSkills }
   ];
   const passed = shieldChecks.filter(c => c.a === '✅').length;
+  // AgentShield checks (kind of a pain to wire up but worth it)
   const score = Math.round((passed / shieldChecks.length) * 100);
   const scoreColor = score >= 80 ? 'var(--success-color)' 
                    : score >= 60 ? '#f59e0b' 

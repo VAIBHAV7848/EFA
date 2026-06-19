@@ -1,6 +1,6 @@
 # Testing with the RouterTestingHarness
 
-When testing components that involve routing, it is crucial **not to mock the Router or related services**. Instead, use the `RouterTestingHarness`, which provides a robust and reliable way to test routing logic in an environment that closely mirrors a real application.
+When testing components that involve routing, it is crucial **not to mock the Router or related services**. Instead, use the `RouterTestingHarness`, which provides a solid and reliable way to test routing logic in an environment that closely mirrors a real application.
 
 Using the harness ensures you are testing the actual router configuration, guards, and resolvers, leading to more meaningful tests.
 

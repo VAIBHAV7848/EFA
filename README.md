@@ -42,10 +42,10 @@
 
 <br /><br />
 
-**Not just configs. A complete operating system for AI-powered development.**
+**Not just another list of prompts. I built this to be a complete local dev environment.**
 
-Production-ready agents, skills, hooks, rules, MCP configs, and automated workflows —<br />
-evolved over **10+ months** of real-world daily engineering across **12+ language ecosystems**.
+After fighting with standard AI contexts for 10+ months across a dozen languages, I got tired of copy-pasting. 
+This repo contains the actual agents, skills, hooks, and automated workflows I use daily.
 
 <br />
 
@@ -114,9 +114,9 @@ cd EFA && npm install
 
 ---
 
-## ⚡ God Mode: The Ultimate Power Upgrade
+## ⚡ "God Mode" (The fun stuff)
 
-EFA is no longer just static rules—it is an active, parallel-executing AI engine. We have integrated three exclusive features that make EFA the most powerful AI Operating System in existence:
+Honestly, static rules aren't enough anymore. I wired up an active, parallel-executing engine. Here are the three experimental features I'm most proud of:
 
 1. **🧠 Infinite Context (Vector Memory Engine)**
    EFA doesn't forget. Key decisions, architectures, and rules are stored in a local semantic JSON vector store. EFA will silently recall these tags across sessions without destroying your context window limits. 
@@ -130,14 +130,14 @@ EFA is no longer just static rules—it is an active, parallel-executing AI engi
    Prefix any failing command with `/auto-heal`. Instead of crashing, EFA intercepts the stack trace, feeds it back to itself in a JSON payload, fixes the code autonomously, and re-runs the process until it's green.
    - *Try it:* `/auto-heal npm run test`
 
-## 👑 Tier-3 God Mode (Absolute Pinnacle of AI Power)
+## 👑 Tier-3 (Highly Experimental)
 
-EFA includes experimental Tier-3 capabilities that push it beyond any existing framework:
+I'm currently pushing the limits of what local LLMs can do. These are rough but they work:
 
-1. 👁️ **EFA Sentinel (Real-Time Watcher):** A background daemon that watches your codebase. The millisecond you hit `CTRL+S`, Sentinel analyzes your code and automatically fixes syntax errors before you even switch to your terminal. (`/sentinel`)
-2. 🐳 **EFA Docker Sandbox:** Execute chaotic, destructive, or complex agent tests safely within ephemeral isolated containers, protecting your host OS. (`node scripts/efa-docker-sandbox.js`)
-3. 🧬 **AST Parsing Engine:** EFA stops reading your code as text and starts reading it as Abstract Syntax Trees (AST). It understands the exact mathematical logic of your application, destroying hallucination. (`node scripts/efa-ast-parser.js`)
-4. 🧠 **The Evolution Engine (Self-Modifying Core):** EFA tracks its own successes and failures. When it learns a new coding pattern or fixes a bug, it permanently rewrites its own `SKILL.md` brain files. EFA literally programs itself to get smarter over time. (`/evolve`)
+1. 👁️ **EFA Sentinel:** A background daemon that watches the codebase. The second I hit `CTRL+S`, it analyzes the diff and auto-fixes syntax errors before I even alt-tab. (`/sentinel`)
+2. 🐳 **EFA Docker Sandbox:** Spins up ephemeral containers for agents to test chaotic/destructive commands safely. (`node scripts/efa-docker-sandbox.js`)
+3. 🧬 **AST Parsing Engine:** Instead of feeding raw text, this parses code into an Abstract Syntax Tree so the AI actually "understands" the structure (really cuts down on hallucinations). (`node scripts/efa-ast-parser.js`)
+4. 🧠 **Evolution Engine:** Whenever the AI figures out a tough bug, it permanently updates its own `SKILL.md` brain files. It basically programs itself over time. (`/evolve`)
 
 <br />
 

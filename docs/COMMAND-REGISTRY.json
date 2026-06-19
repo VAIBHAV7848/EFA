@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "totalCommands": 92,
+  "totalCommands": 95,
   "commands": [
     {
       "command": "aside",
@@ -10,6 +10,15 @@
       "allAgents": [],
       "skills": [],
       "path": "commands/aside.md"
+    },
+    {
+      "command": "auto-heal",
+      "description": "Triggers the EFA God Mode execution loop for a command.",
+      "type": "testing",
+      "primaryAgents": [],
+      "allAgents": [],
+      "skills": [],
+      "path": "commands/auto-heal.md"
     },
     {
       "command": "auto-update",
@@ -179,13 +188,11 @@
     },
     {
       "command": "evolve",
-      "description": "Analyze instincts and suggest or generate evolved structures",
-      "type": "testing",
+      "description": "Triggers the EFA Evolution Engine to permanently rewrite its own SKILL.md brain files with newly learned lessons.",
+      "type": "general",
       "primaryAgents": [],
       "allAgents": [],
-      "skills": [
-        "continuous-learning-v2"
-      ],
+      "skills": [],
       "path": "commands/evolve.md"
     },
     {
@@ -924,6 +931,15 @@
       "path": "commands/security-scan.md"
     },
     {
+      "command": "sentinel",
+      "description": "Triggers the EFA Sentinel to watch the filesystem and auto-heal errors in real-time.",
+      "type": "general",
+      "primaryAgents": [],
+      "allAgents": [],
+      "skills": [],
+      "path": "commands/sentinel.md"
+    },
+    {
       "command": "sessions",
       "description": "Manage Claude Code session history, aliases, and session metadata.",
       "type": "general",
@@ -958,6 +974,15 @@
       "allAgents": [],
       "skills": [],
       "path": "commands/skill-health.md"
+    },
+    {
+      "command": "swarm",
+      "description": "Triggers the EFA Swarm Orchestrator to execute multiple agents in parallel.",
+      "type": "orchestration",
+      "primaryAgents": [],
+      "allAgents": [],
+      "skills": [],
+      "path": "commands/swarm.md"
     },
     {
       "command": "test-coverage",
@@ -1007,8 +1032,8 @@
   "statistics": {
     "byType": {
       "build": 2,
-      "general": 10,
-      "orchestration": 11,
+      "general": 12,
+      "orchestration": 12,
       "planning": 2,
       "refactoring": 1,
       "review": 13,
@@ -1059,7 +1084,7 @@
     "topSkills": [
       {
         "skill": "continuous-learning-v2",
-        "count": 6
+        "count": 5
       },
       {
         "skill": "orch-add-feature",

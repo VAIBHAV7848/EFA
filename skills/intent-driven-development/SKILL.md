@@ -185,7 +185,7 @@ For each applicable criterion include:
 - Environment/safety constraint when verification could affect data, services, cost, or secrets.
 - Priority: required, important, or optional.
 
-Do not use words such as "correctly", "securely", "fast", "intuitive", or "robust" without
+Do not use words such as "correctly", "securely", "fast", "intuitive", or "solid" without
 defining observable evidence or recording them as a human-review judgment.
 
 ### 5. Cover Only Relevant Boundaries
@@ -335,7 +335,7 @@ an assumption to confirm.
 A brief passes only if every answer is "yes". Any "no" means revise before returning it.
 
 - [ ] Does every required criterion have a scenario, an observable expected result, and a named verification method?
-- [ ] Are all vague terms ("correctly", "secure", "fast", "robust") either replaced with observable evidence or marked as human judgment?
+- [ ] Are all vague terms ("correctly", "secure", "fast", "solid") either replaced with observable evidence or marked as human judgment?
 - [ ] Are product/business constraints listed as supplied/assumed, with none silently inferred from code?
 - [ ] Is scope explicit, with out-of-scope items named?
 - [ ] Are blocking decisions limited to choices that actually affect safety or correctness, not preferences?

@@ -1,13 +1,13 @@
 ---
 name: error-handling
-description: Patterns for robust error handling across TypeScript, Python, and Go. Covers typed errors, error boundaries, retries, circuit breakers, and user-facing error messages.
+description: Patterns for solid error handling across TypeScript, Python, and Go. Covers typed errors, error boundaries, retries, circuit breakers, and user-facing error messages.
 metadata:
   origin: EFA
 ---
 
 # Error Handling Patterns
 
-Consistent, robust error handling patterns for production applications.
+Consistent, solid error handling patterns for production applications.
 
 ## When to Activate
 

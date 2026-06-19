@@ -1,13 +1,13 @@
 ---
 name: python-patterns
-description: Pythonic idioms, PEP 8 standards, type hints, and best practices for building robust, efficient, and maintainable Python applications.
+description: Pythonic idioms, PEP 8 standards, type hints, and best practices for building solid, efficient, and maintainable Python applications.
 metadata:
   origin: EFA
 ---
 
 # Python Development Patterns
 
-Idiomatic Python patterns and best practices for building robust, efficient, and maintainable applications.
+Idiomatic Python patterns and best practices for building solid, efficient, and maintainable applications.
 
 ## When to Activate
 

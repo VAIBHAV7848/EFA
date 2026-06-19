@@ -83,7 +83,7 @@ const data = {
   }
 };
 
-// Agents
+// TODO: might need to async this if we get way too many agents later, but it's fast enough for now
 const agentsDir = path.join(repoRoot, 'agents');
 if (fs.existsSync(agentsDir)) {
   fs.readdirSync(agentsDir).forEach(f => {

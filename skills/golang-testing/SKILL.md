@@ -7,7 +7,7 @@ metadata:
 
 # Go Testing Patterns
 
-Comprehensive Go testing patterns for writing reliable, maintainable tests following TDD methodology.
+Go testing patterns for writing reliable, maintainable tests following TDD methodology.
 
 ## When to Activate
 

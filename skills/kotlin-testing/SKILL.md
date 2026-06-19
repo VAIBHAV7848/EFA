@@ -7,7 +7,7 @@ metadata:
 
 # Kotlin Testing Patterns
 
-Comprehensive Kotlin testing patterns for writing reliable, maintainable tests following TDD methodology with Kotest and MockK.
+Kotlin testing patterns for writing reliable, maintainable tests following TDD methodology with Kotest and MockK.
 
 ## When to Use
 

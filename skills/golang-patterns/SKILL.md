@@ -1,13 +1,13 @@
 ---
 name: golang-patterns
-description: Idiomatic Go patterns, best practices, and conventions for building robust, efficient, and maintainable Go applications.
+description: Idiomatic Go patterns, best practices, and conventions for building solid, efficient, and maintainable Go applications.
 metadata:
   origin: EFA
 ---
 
 # Go Development Patterns
 
-Idiomatic Go patterns and best practices for building robust, efficient, and maintainable applications.
+Idiomatic Go patterns and best practices for building solid, efficient, and maintainable applications.
 
 ## When to Activate
 
