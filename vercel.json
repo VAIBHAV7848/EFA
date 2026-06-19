@@ -1,0 +1,5 @@
+{
+  "buildCommand": "npm run dashboard:build",
+  "outputDirectory": "efa-control-center/dist",
+  "framework": "vite"
+}
