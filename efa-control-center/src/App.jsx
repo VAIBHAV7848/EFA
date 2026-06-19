@@ -62,7 +62,7 @@ const StatCard = ({ title, value, icon, trend }) => (
 );
 
 function App() {
-  const [activeTab, setActiveTab] = useState('Overview');
+  const [activeTab, setActiveTab] = useState('GitHub');
   const [searchQuery, setSearchQuery] = useState('');
   
   const { agents, skills, commands, rules, shield } = efaData;
@@ -112,7 +112,10 @@ function App() {
         </div>
 
         <div style={{ flex: 1 }}>
-          <div style={{ fontSize: '0.75rem', textTransform: 'uppercase', color: 'var(--text-muted)', letterSpacing: '1.5px', marginBottom: '12px', paddingLeft: '16px', fontWeight: 600 }}>Core Engine</div>
+          <div style={{ fontSize: '0.75rem', textTransform: 'uppercase', color: 'var(--text-muted)', letterSpacing: '1.5px', marginBottom: '12px', paddingLeft: '16px', fontWeight: 600 }}>Community</div>
+          <SidebarItem icon="⭐" label="GitHub" active={activeTab === 'GitHub'} onClick={() => setActiveTab('GitHub')} />
+
+          <div style={{ fontSize: '0.75rem', textTransform: 'uppercase', color: 'var(--text-muted)', letterSpacing: '1.5px', marginTop: '32px', marginBottom: '12px', paddingLeft: '16px', fontWeight: 600 }}>Core Engine</div>
           <SidebarItem icon="📊" label="Overview" active={activeTab === 'Overview'} onClick={() => setActiveTab('Overview')} />
           <SidebarItem icon="🤖" label={`Agents (${agents.length})`} active={activeTab === 'Agents'} onClick={() => setActiveTab('Agents')} />
           <SidebarItem icon="⚡" label={`Skills (${skills.length})`} active={activeTab === 'Skills'} onClick={() => setActiveTab('Skills')} />
@@ -328,6 +331,36 @@ function App() {
                   <p style={{ fontSize: '0.9rem', color: 'var(--accent-color)', fontWeight: 500 }}>{rule.files.length} rule files</p>
                 </div>
               ))}
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'GitHub' && (
+          <div className="glass-panel" style={{ flex: 1, padding: '40px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>
+            <div style={{ 
+              fontSize: '5rem', 
+              marginBottom: '24px',
+              filter: 'drop-shadow(0 0 30px rgba(255, 255, 255, 0.2))'
+            }}>⭐</div>
+            <h2 className="heading-display" style={{ fontSize: '3rem', marginBottom: '16px' }}>Open Source & Free</h2>
+            <p style={{ color: 'var(--text-muted)', fontSize: '1.15rem', maxWidth: '650px', marginBottom: '40px', lineHeight: 1.6 }}>
+              EFA is built to give control back to developers. It's a complete, local AI operating system with autonomous agents, true parallel execution, and auto-healing capabilities. Support the project by dropping a star!
+            </p>
+            <div style={{ display: 'flex', gap: '20px' }}>
+              <button 
+                className="premium-btn"
+                style={{ fontSize: '1.1rem', padding: '16px 36px', display: 'flex', alignItems: 'center', gap: '10px' }}
+                onClick={() => window.open('https://github.com/VAIBHAV7848/EFA', '_blank')}
+              >
+                <span style={{ fontSize: '1.2rem' }}>⭐</span> Star Repository
+              </button>
+              <button 
+                className="secondary-btn"
+                style={{ fontSize: '1.1rem', padding: '16px 36px' }}
+                onClick={() => window.open('https://github.com/VAIBHAV7848/EFA/discussions', '_blank')}
+              >
+                Join Discussions
+              </button>
             </div>
           </div>
         )}
