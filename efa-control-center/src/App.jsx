@@ -163,7 +163,7 @@ function App() {
             <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
               <StatCard title="Active Agents" value={agents.length.toString()} icon="🤖" trend="Ready for delegation" />
               <StatCard title="Loaded Skills" value={skills.length.toString()} icon="⚡" trend="+4 new this week" />
-              <StatCard title="Security Score" value="100%" icon="🛡️" trend="AgentShield Active" />
+              <StatCard title="Security Score" value={`${score}%`} icon="🛡️" trend="AgentShield Active" />
               <StatCard title="Test Coverage" value="84%" icon="✅" trend="Passing TDD Rule" />
             </div>
 

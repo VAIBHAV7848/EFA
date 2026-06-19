@@ -2418,8 +2418,8 @@
   "shield": {
     "claudeMdPresent": "✅",
     "hooksUseEval": "✅",
-    "mcpTokensHardcoded": "❌",
+    "mcpTokensHardcoded": "✅",
     "memoryInGitignore": "✅",
-    "noSecretsInSkills": "❌"
+    "noSecretsInSkills": "✅"
   }
 }

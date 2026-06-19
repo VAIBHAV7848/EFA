@@ -26,6 +26,47 @@ function parseFrontmatter(content) {
   return metadata;
 }
 
+let hooksUseEval = "✅";
+const hooksDir = path.join(repoRoot, 'hooks');
+if (fs.existsSync(hooksDir)) {
+  const walkSync = (dir) => {
+    let results = [];
+    const list = fs.readdirSync(dir);
+    list.forEach(file => {
+      const fullPath = path.join(dir, file);
+      const stat = fs.statSync(fullPath);
+      if (stat && stat.isDirectory()) results = results.concat(walkSync(fullPath));
+      else results.push(fullPath);
+    });
+    return results;
+  };
+  const hookFiles = walkSync(hooksDir);
+  for (const file of hookFiles) {
+    if (fs.readFileSync(file, 'utf-8').includes('eval(')) {
+      hooksUseEval = "❌";
+      break;
+    }
+  }
+}
+
+let mcpTokensHardcoded = "✅";
+const mcpRegex = /(sk-[a-zA-Z0-9]{20,}|ghp_[a-zA-Z0-9]{20,}|AIza[a-zA-Z0-9]{20,}|Bearer\s+[a-zA-Z0-9\-_]{40,})/;
+const mcpFiles = [];
+if (fs.existsSync(path.join(repoRoot, '.mcp.json'))) mcpFiles.push(path.join(repoRoot, '.mcp.json'));
+const mcpConfigsDir = path.join(repoRoot, 'mcp-configs');
+if (fs.existsSync(mcpConfigsDir)) {
+  fs.readdirSync(mcpConfigsDir).forEach(f => mcpFiles.push(path.join(mcpConfigsDir, f)));
+}
+for (const file of mcpFiles) {
+  if (fs.statSync(file).isFile()) {
+    const content = fs.readFileSync(file, 'utf-8');
+    if (mcpRegex.test(content)) {
+      mcpTokensHardcoded = "❌";
+      break;
+    }
+  }
+}
+
 const gitignoreContent = fs.existsSync(path.join(repoRoot, '.gitignore')) ? fs.readFileSync(path.join(repoRoot, '.gitignore'), 'utf-8') : '';
 
 const data = {
@@ -35,8 +76,8 @@ const data = {
   rules: [],
   shield: {
     claudeMdPresent: fs.existsSync(path.join(repoRoot, 'CLAUDE.md')) ? "✅" : "❌",
-    hooksUseEval: "✅",
-    mcpTokensHardcoded: "❌",
+    hooksUseEval: hooksUseEval,
+    mcpTokensHardcoded: mcpTokensHardcoded,
     memoryInGitignore: gitignoreContent.includes('.efa-vector-memory.json') ? "✅" : "❌",
     noSecretsInSkills: "✅"
   }
@@ -66,7 +107,8 @@ if (fs.existsSync(skillsDir)) {
     if (fs.existsSync(skillFile)) {
       const content = fs.readFileSync(skillFile, 'utf-8');
       const meta = parseFrontmatter(content);
-      if (content.toLowerCase().includes('api_key')) {
+      const secretRegex = /api_key["']?\s*[:=]\s*["'](sk-|AIza|ghp_)[a-zA-Z0-9]{15,}["']/i;
+      if (secretRegex.test(content)) {
         data.shield.noSecretsInSkills = "❌";
       }
       data.skills.push({
