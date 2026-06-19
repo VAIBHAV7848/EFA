@@ -157,6 +157,7 @@ skills:
   - x-api
 commands:
   - aside
+  - auto-heal
   - auto-update
   - build-fix
   - checkpoint
@@ -240,10 +241,12 @@ commands:
   - santa-loop
   - save-session
   - security-scan
+  - sentinel
   - sessions
   - setup-pm
   - skill-create
   - skill-health
+  - swarm
   - test-coverage
   - update-codemaps
   - update-docs

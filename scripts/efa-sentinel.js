@@ -19,18 +19,53 @@ console.log(`[EFA Sentinel] Sentinel is active. Watching for structural mutation
 
 let isChecking = false;
 
+// Check available binaries
+console.log(`[EFA Sentinel] Verifying language toolchains:`);
+const availableCheckers = {};
+for (const [ext, cmdArr] of Object.entries({
+  '.js': ['node', '--version'], '.ts': ['node', '--version'],
+  '.py': ['python3', '--version'], '.go': ['go', 'version'],
+  '.rs': ['rustfmt', '--version'], '.java': ['javac', '-version'],
+  '.rb': ['ruby', '--version'], '.php': ['php', '--version']
+})) {
+  const check = require('child_process').spawnSync(cmdArr[0], [cmdArr[1]], { shell: true });
+  if (check.status === 0) {
+    availableCheckers[ext] = true;
+  } else {
+    console.log(`[EFA Sentinel] Skipping ${ext} — ${cmdArr[0]} not in PATH`);
+  }
+}
+console.log(`[EFA Sentinel] Actively watching extensions: ${Object.keys(availableCheckers).join(', ')}\n`);
+
 function checkSyntax(filePath) {
   if (isChecking) return;
   
-  const ext = path.extname(filePath);
-  if (!['.js', '.jsx', '.ts', '.tsx'].includes(ext)) return;
+  const SYNTAX_CHECKERS = {
+    '.js': ['node', '--check'],
+    '.jsx': ['node', '--check'],
+    '.ts': ['node', '--check'],
+    '.tsx': ['node', '--check'],
+    '.py': ['python3', '-c', `import py_compile; py_compile.compile('${filePath}', doraise=True)`],
+    '.go': ['go', 'vet'],
+    '.rs': ['rustfmt', '--check'],
+    '.java': ['javac', '-classpath', '.'],
+    '.rb': ['ruby', '--syntax-check'],
+    '.php': ['php', '--syntax-check'],
+  };
   
+  const ext = path.extname(filePath);
+  if (!SYNTAX_CHECKERS[ext]) return;
+  
+  if (!availableCheckers[ext]) return;
+
   isChecking = true;
   console.log(`\n[EFA Sentinel] File mutation detected: ${filePath}`);
   console.log(`[EFA Sentinel] Analyzing structural integrity...`);
 
-  // Basic syntax check using Node.js built-in AST compilation test
-  const child = spawn('node', ['--check', filePath], { shell: true });
+  const checker = SYNTAX_CHECKERS[ext];
+  // Replace the placeholder ${filePath} if it's Python
+  const cmdLine = checker.map(c => c.replace('${filePath}', filePath)).join(' ');
+  const child = spawn(cmdLine, { shell: true });
   
   let stderrData = '';
   

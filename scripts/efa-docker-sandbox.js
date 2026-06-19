@@ -19,9 +19,12 @@ if (!command) {
 // Check if Docker is installed
 const dockerCheck = spawnSync('docker', ['--version']);
 if (dockerCheck.status !== 0) {
-  console.error("\n[EFA Sandbox] ⚠️ Docker is not installed or not running!");
-  console.error("[EFA Sandbox] Falling back to local unsafe execution...\n");
+  console.error("\n⛔ SANDBOX DISABLED — Docker not found");
+  console.error("Running command DIRECTLY on your host OS with NO isolation.");
+  console.error("Install Docker to enable true sandbox protection.");
+  console.error("Proceeding in 3 seconds... (Ctrl+C to abort)\n");
   
+  spawnSync('sleep', ['3']);
   const localRun = spawnSync(command, { shell: true, stdio: 'inherit' });
   process.exit(localRun.status || 0);
 }

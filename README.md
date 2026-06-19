@@ -38,7 +38,7 @@
 <br /><br />
 
 <!-- FEATURES BANNER -->
-<img src="assets/features.png" alt="67 Agents · 271 Skills · 92 Commands · 7 Harnesses" width="650" />
+<img src="assets/features.png" alt="67 Agents · 275 Skills · 92 Commands · 7 Harnesses" width="650" />
 
 <br /><br />
 
@@ -187,7 +187,7 @@ AI subagents that handle delegated tasks with surgical precision:
 </td>
 <td width="50%" valign="top">
 
-### ⚡ 271 Deep Skills
+### ⚡ 275 Deep Skills
 
 Production-tested workflow knowledge:
 

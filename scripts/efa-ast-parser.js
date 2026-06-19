@@ -38,7 +38,7 @@ try {
   // Babel not found, try Acorn
   try {
     const acorn = require('acorn');
-    const ast = acorn.parse(code, { ecmaVersion: 2020, sourceType: "module" });
+    const ast = acorn.parse(code, { ecmaVersion: 2020, sourceType: "module", allowHashBang: true });
     console.log(JSON.stringify(ast, null, 2));
     parsed = true;
   } catch (err) {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './index.css';
 
 const SidebarItem = ({ icon, label, active, onClick }) => (
@@ -59,6 +59,27 @@ const StatCard = ({ title, value, icon, trend }) => (
 
 function App() {
   const [activeTab, setActiveTab] = useState('Overview');
+  const [searchQuery, setSearchQuery] = useState('');
+  
+  // Mock Data for UI presentation
+  const mockAgents = Array.from({ length: 67 }).map((_, i) => ({
+    name: `Agent-${i+1}`,
+    description: 'Specialized domain agent for autonomous operations.',
+    command: `/agent-${i+1}`
+  }));
+  const mockSkills = Array.from({ length: 275 }).map((_, i) => ({
+    name: `Skill-${i+1}`,
+    description: 'Workflow pattern and domain knowledge.',
+    command: `npx efa install --skills Skill-${i+1}`
+  }));
+  const mockRules = ['python', 'react', 'go', 'rust', 'java', 'kotlin', 'cpp', 'ruby'].map(lang => ({
+    language: lang,
+    files: ['rules.md', 'patterns.md']
+  }));
+  
+  const filteredAgents = mockAgents.filter(a => a.name.toLowerCase().includes(searchQuery.toLowerCase()));
+  const filteredSkills = mockSkills.filter(s => s.name.toLowerCase().includes(searchQuery.toLowerCase()));
+
 
   return (
     <div style={{ display: 'flex', minHeight: '100vh', padding: '20px', gap: '20px' }}>
@@ -185,12 +206,94 @@ function App() {
           </>
         )}
         
-        {activeTab !== 'Overview' && (
-          <div className="glass-panel" style={{ flex: 1, padding: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <div style={{ textAlign: 'center', color: 'var(--text-muted)' }}>
-              <div style={{ fontSize: '4rem', marginBottom: '16px' }}>🚧</div>
-              <h2 className="heading-display" style={{ color: '#fff', marginBottom: '8px' }}>{activeTab} Module</h2>
-              <p>This module is currently being built in Phase 2 of the EFA OS update.</p>
+        {activeTab === 'Agents' && (
+          <div className="glass-panel" style={{ flex: 1, padding: '32px', display: 'flex', flexDirection: 'column' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '24px' }}>
+              <h2 className="heading-display">Agents Directory</h2>
+              <input 
+                type="text" 
+                placeholder="Search agents..." 
+                value={searchQuery}
+                onChange={e => setSearchQuery(e.target.value)}
+                style={{ padding: '8px 16px', borderRadius: '8px', border: '1px solid var(--border-glass)', background: 'rgba(0,0,0,0.2)', color: '#fff' }}
+              />
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))', gap: '16px', overflowY: 'auto', flex: 1 }}>
+              {filteredAgents.map((agent, i) => (
+                <div key={i} style={{ padding: '16px', background: 'var(--bg-card)', borderRadius: '12px', border: '1px solid var(--border-glass)' }}>
+                  <h3 style={{ fontSize: '1.2rem', marginBottom: '8px' }}>{agent.name}</h3>
+                  <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '16px' }}>{agent.description}</p>
+                  <button 
+                    onClick={() => navigator.clipboard.writeText(agent.command)}
+                    style={{ background: 'var(--accent-color)', border: 'none', color: '#fff', padding: '6px 12px', borderRadius: '6px', cursor: 'pointer', fontSize: '0.8rem' }}>
+                    Copy {agent.command}
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'Skills' && (
+          <div className="glass-panel" style={{ flex: 1, padding: '32px', display: 'flex', flexDirection: 'column' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '24px' }}>
+              <h2 className="heading-display">Skills Library</h2>
+              <input 
+                type="text" 
+                placeholder="Search skills..." 
+                value={searchQuery}
+                onChange={e => setSearchQuery(e.target.value)}
+                style={{ padding: '8px 16px', borderRadius: '8px', border: '1px solid var(--border-glass)', background: 'rgba(0,0,0,0.2)', color: '#fff' }}
+              />
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '16px', overflowY: 'auto', flex: 1 }}>
+              {filteredSkills.map((skill, i) => (
+                <div key={i} style={{ padding: '16px', background: 'var(--bg-card)', borderRadius: '12px', border: '1px solid var(--border-glass)' }}>
+                  <h3 style={{ fontSize: '1.2rem', marginBottom: '8px' }}>{skill.name}</h3>
+                  <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '16px' }}>{skill.description}</p>
+                  <div style={{ background: 'rgba(0,0,0,0.3)', padding: '8px', borderRadius: '6px', fontSize: '0.8rem', color: 'var(--text-muted)', display: 'flex', justifyContent: 'space-between' }}>
+                    <code>{skill.command}</code>
+                    <button onClick={() => navigator.clipboard.writeText(skill.command)} style={{ background: 'transparent', border: 'none', color: 'var(--accent-color)', cursor: 'pointer' }}>Copy</button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'AgentShield' && (
+          <div className="glass-panel" style={{ flex: 1, padding: '32px', display: 'flex', flexDirection: 'column' }}>
+            <div style={{ marginBottom: '32px', textAlign: 'center' }}>
+              <h2 className="heading-display" style={{ color: 'var(--success-color)', fontSize: '3rem' }}>100/100</h2>
+              <p style={{ color: 'var(--text-muted)' }}>Overall Threat Score</p>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', maxWidth: '600px', margin: '0 auto', width: '100%' }}>
+              {[
+                { q: "Is CLAUDE.md present?", a: "✅" },
+                { q: "Are hooks using eval?", a: "❌" },
+                { q: "Are MCP tokens hardcoded?", a: "❌" },
+                { q: "Does .gitignore cover .efa-vector-memory.json?", a: "✅" }
+              ].map((item, i) => (
+                <div key={i} style={{ display: 'flex', justifyContent: 'space-between', padding: '16px', background: 'rgba(0,0,0,0.2)', borderRadius: '12px', border: '1px solid var(--border-glass)' }}>
+                  <span style={{ fontWeight: 500 }}>{item.q}</span>
+                  <span>{item.a}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'Rules' && (
+          <div className="glass-panel" style={{ flex: 1, padding: '32px', display: 'flex', flexDirection: 'column' }}>
+            <h2 className="heading-display" style={{ marginBottom: '24px' }}>Language Rules Engine</h2>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '16px' }}>
+              {mockRules.map((rule, i) => (
+                <div key={i} style={{ padding: '20px', background: 'var(--bg-card)', borderRadius: '12px', border: '1px solid var(--border-glass)', textAlign: 'center', cursor: 'pointer', transition: 'all 0.2s' }} onMouseOver={e => e.currentTarget.style.transform = 'translateY(-5px)'} onMouseOut={e => e.currentTarget.style.transform = 'none'}>
+                  <div style={{ fontSize: '2.5rem', marginBottom: '12px' }}>🌐</div>
+                  <h3 style={{ textTransform: 'capitalize', marginBottom: '8px' }}>{rule.language}</h3>
+                  <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>{rule.files.length} rule files</p>
+                </div>
+              ))}
             </div>
           </div>
         )}
