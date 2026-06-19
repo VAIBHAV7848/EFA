@@ -1,370 +1,252 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './index.css';
 import efaData from './data/efa-data.json';
 
-const SidebarItem = ({ icon, label, active, onClick }) => (
-  <div 
-    onClick={onClick}
-    style={{
-      padding: '12px 16px',
-      margin: '8px 0',
-      borderRadius: '12px',
-      cursor: 'pointer',
-      display: 'flex',
-      alignItems: 'center',
-      gap: '12px',
-      background: active ? 'rgba(56, 189, 248, 0.15)' : 'transparent',
-      borderLeft: active ? '3px solid var(--accent-color)' : '3px solid transparent',
-      color: active ? '#fff' : 'var(--text-muted)',
-      transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
-      fontWeight: active ? 600 : 500,
-      fontFamily: 'Outfit, sans-serif'
-    }}
-    onMouseEnter={(e) => {
-      if (!active) {
-        e.currentTarget.style.background = 'rgba(255, 255, 255, 0.05)';
-        e.currentTarget.style.color = '#fff';
-      }
-    }}
-    onMouseLeave={(e) => {
-      if (!active) {
-        e.currentTarget.style.background = 'transparent';
-        e.currentTarget.style.color = 'var(--text-muted)';
-      }
-    }}
-  >
-    <span style={{ fontSize: '1.2rem', opacity: active ? 1 : 0.7 }}>{icon}</span>
-    <span>{label}</span>
-  </div>
-);
-
-const StatCard = ({ title, value, icon, trend }) => (
-  <div className="glass-panel interactive-card" style={{ padding: '24px', flex: '1', minWidth: '200px' }}>
-    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-      <div>
-        <h3 style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '8px', fontWeight: 500 }}>{title}</h3>
-        <div className="heading-display" style={{ fontSize: '2.5rem', fontWeight: 700, color: '#fff' }}>{value}</div>
-      </div>
-      <div style={{ 
-        background: 'linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05))', 
-        padding: '12px', 
-        borderRadius: '14px',
-        fontSize: '1.5rem',
-        border: '1px solid rgba(255,255,255,0.05)'
-      }}>
-        {icon}
-      </div>
+const TerminalMockup = ({ code, lines }) => (
+  <div className="terminal-window" style={{ maxWidth: '600px', margin: '0 auto' }}>
+    <div className="terminal-header">
+      <div className="terminal-dot" style={{ background: '#ef4444' }}></div>
+      <div className="terminal-dot" style={{ background: '#eab308' }}></div>
+      <div className="terminal-dot" style={{ background: '#22c55e' }}></div>
     </div>
-    <div style={{ marginTop: '16px', fontSize: '0.85rem', color: trend.startsWith('+') ? 'var(--success-color)' : 'var(--text-muted)' }}>
-      {trend}
+    <div className="terminal-body">
+      {code ? (
+        <pre style={{ margin: 0 }}><code style={{ color: '#fbbf24' }}>$ {code}</code></pre>
+      ) : (
+        lines.map((l, i) => (
+          <div key={i} style={{ color: l.color || 'inherit', marginBottom: '8px' }}>
+            {l.text}
+          </div>
+        ))
+      )}
     </div>
   </div>
 );
 
 function App() {
-  const [activeTab, setActiveTab] = useState('GitHub');
-  const [searchQuery, setSearchQuery] = useState('');
-  
-  const { agents, skills, commands, rules, shield } = efaData;
-  
-  const filteredAgents = agents.filter(a => a.name.toLowerCase().includes(searchQuery.toLowerCase()));
-  const filteredSkills = skills.filter(s => s.name.toLowerCase().includes(searchQuery.toLowerCase()));
+  const { agents, skills, rules, shield } = efaData;
 
   const shieldChecks = [
-    { q: "Is CLAUDE.md present?",              a: shield.claudeMdPresent },
-    { q: "Are hooks using eval()?",            a: shield.hooksUseEval },
-    { q: "Are MCP tokens hardcoded?",          a: shield.mcpTokensHardcoded },
+    { q: "Is CLAUDE.md present?", a: shield.claudeMdPresent },
+    { q: "Are hooks using eval()?", a: shield.hooksUseEval },
+    { q: "Are MCP tokens hardcoded?", a: shield.mcpTokensHardcoded },
     { q: "Does .gitignore cover memory file?", a: shield.memoryInGitignore },
-    { q: "No secrets in skills?",              a: shield.noSecretsInSkills }
+    { q: "No secrets in skills?", a: shield.noSecretsInSkills }
   ];
-  const passed = shieldChecks.filter(c => c.a === '✅').length;
-  // AgentShield checks (kind of a pain to wire up but worth it)
-  const score = Math.round((passed / shieldChecks.length) * 100);
-  const scoreColor = score >= 80 ? 'var(--success-color)' 
-                   : score >= 60 ? '#f59e0b' 
-                   : 'var(--danger-color)';
-
-  const handleCopy = (text, label) => {
-    navigator.clipboard.writeText(text);
-    alert(`Copied ${label} to clipboard!`);
-  };
 
   return (
-    <div style={{ display: 'flex', minHeight: '100vh', padding: '20px', gap: '20px' }}>
-      {/* Sidebar */}
-      <nav className="glass-panel" style={{ width: '280px', padding: '24px', display: 'flex', flexDirection: 'column' }}>
-        <div style={{ marginBottom: '40px', display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <div style={{ 
-            width: '44px', 
-            height: '44px', 
-            background: 'var(--accent-gradient)', 
-            borderRadius: '12px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            fontWeight: 'bold',
-            fontSize: '1.2rem',
-            boxShadow: '0 4px 20px var(--primary-glow)'
-          }}>
-            AI
-          </div>
-          <h1 className="heading-display" style={{ fontSize: '1.6rem' }}>EFA Control</h1>
+    <div>
+      {/* Sticky Navigation */}
+      <nav className="sticky-nav">
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <div style={{ color: 'var(--accent-color)', fontWeight: 700, fontSize: '1.2rem' }}>EFA</div>
+          <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Open Agent Harness System</div>
         </div>
-
-        <div style={{ flex: 1 }}>
-          <div style={{ fontSize: '0.75rem', textTransform: 'uppercase', color: 'var(--text-muted)', letterSpacing: '1.5px', marginBottom: '12px', paddingLeft: '16px', fontWeight: 600 }}>Community</div>
-          <SidebarItem icon="⭐" label="GitHub" active={activeTab === 'GitHub'} onClick={() => setActiveTab('GitHub')} />
-
-          <div style={{ fontSize: '0.75rem', textTransform: 'uppercase', color: 'var(--text-muted)', letterSpacing: '1.5px', marginTop: '32px', marginBottom: '12px', paddingLeft: '16px', fontWeight: 600 }}>Core Engine</div>
-          <SidebarItem icon="📊" label="Overview" active={activeTab === 'Overview'} onClick={() => setActiveTab('Overview')} />
-          <SidebarItem icon="🤖" label={`Agents (${agents.length})`} active={activeTab === 'Agents'} onClick={() => setActiveTab('Agents')} />
-          <SidebarItem icon="⚡" label={`Skills (${skills.length})`} active={activeTab === 'Skills'} onClick={() => setActiveTab('Skills')} />
-          
-          <div style={{ fontSize: '0.75rem', textTransform: 'uppercase', color: 'var(--text-muted)', letterSpacing: '1.5px', marginTop: '32px', marginBottom: '12px', paddingLeft: '16px', fontWeight: 600 }}>Security & Rules</div>
-          <SidebarItem icon="🛡️" label="AgentShield" active={activeTab === 'AgentShield'} onClick={() => setActiveTab('AgentShield')} />
-          <SidebarItem icon="⚙️" label="Rules Engine" active={activeTab === 'Rules'} onClick={() => setActiveTab('Rules')} />
+        <div className="nav-links">
+          <a href="#skills" className="nav-link">Skills & Agents</a>
+          <a href="#security" className="nav-link">Security</a>
+          <a href="#rules" className="nav-link">Rules Engine</a>
+          <a href="https://github.com/VAIBHAV7848/EFA" target="_blank" rel="noreferrer" className="nav-link">GitHub</a>
         </div>
-
-        <div style={{ marginTop: 'auto', paddingTop: '20px', borderTop: '1px solid var(--border-glass)' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '8px 16px', background: 'rgba(16, 185, 129, 0.1)', borderRadius: '10px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--success-color)', boxShadow: '0 0 10px var(--success-color)' }}></div>
-            <span style={{ fontSize: '0.9rem', color: 'var(--success-color)', fontWeight: 500 }}>System Online</span>
+            <span style={{ fontSize: '0.85rem', color: 'var(--success-color)' }}>System Online</span>
           </div>
+          <button className="premium-btn" style={{ padding: '8px 16px', fontSize: '0.9rem' }} onClick={() => window.open('https://github.com/VAIBHAV7848/EFA', '_blank')}>
+            Install EFA
+          </button>
         </div>
       </nav>
 
-      {/* Main Content */}
-      <main style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '20px', overflowX: 'hidden' }}>
-        <header className="glass-panel" style={{ padding: '24px 32px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <div>
-            <h2 className="heading-display" style={{ fontSize: '2rem' }}>Welcome to EFA</h2>
-            <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem', marginTop: '6px' }}>The Universal Agent Harness Operating System</p>
-          </div>
-          <div style={{ display: 'flex', gap: '12px' }}>
-            <button 
-              className="secondary-btn"
-              onClick={() => window.open('https://github.com/VAIBHAV7848/EFA', '_blank')}
-            >
-              Documentation
-            </button>
-            <button 
-              className="premium-btn"
-              onClick={() => setActiveTab('Agents')}
-            >
-              Launch Agent
-            </button>
-          </div>
-        </header>
+      {/* Hero Section */}
+      <section style={{ padding: '8rem 2rem', textAlign: 'center', maxWidth: '1000px', margin: '0 auto' }}>
+        <h1 className="heading-hero">
+          Skills, agents,<br/>
+          <span className="text-gradient">and security</span><br/>
+          for your coding agent.
+        </h1>
+        <p className="subheading" style={{ marginBottom: '3rem' }}>
+          Pick a profile, install the skills and agents your team needs. AgentShield scans every session. The EFA app turns repo history into reusable defaults.
+        </p>
 
-        {activeTab === 'Overview' && (
-          <>
-            {/* Stats Row */}
-            <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
-              <StatCard title="Active Agents" value={agents.length.toString()} icon="🤖" trend="Ready for delegation" />
-              <StatCard title="Loaded Skills" value={skills.length.toString()} icon="⚡" trend="+4 new this week" />
-              <StatCard title="Security Score" value={`${score}%`} icon="🛡️" trend="AgentShield Active" />
-              <StatCard title="Test Coverage" value="100%" icon="✅" trend="2,628 Passing Tests" />
-            </div>
+        <TerminalMockup 
+          lines={[
+            { text: '$ efa --install', color: '#fbbf24' },
+            { text: 'Fetching packages...', color: 'var(--text-muted)' },
+            { text: `✓ ${agents.length} agents configured`, color: 'var(--success-color)' },
+            { text: `✓ ${skills.length} skills loaded`, color: 'var(--success-color)' },
+            { text: 'EFA v2.0.0 installed successfully!', color: 'var(--success-color)' }
+          ]} 
+        />
 
-            {/* Health Monitor */}
-            <div className="glass-panel" style={{ flex: 1, padding: '32px', display: 'flex', flexDirection: 'column' }}>
-              <h2 className="heading-display" style={{ marginBottom: '24px' }}>System Health Monitor</h2>
-              
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(400px, 1fr))', gap: '16px' }}>
-                {[
-                  { name: 'Immutability Rules', status: 'Enforced', color: 'var(--success-color)' },
-                  { name: 'TDD Workflow Engine', status: 'Active', color: 'var(--success-color)' },
-                  { name: 'Security Reviewer', status: 'Standing By', color: 'var(--accent-color)' },
-                  { name: 'Vector Memory Store', status: 'Optimized', color: 'var(--success-color)' }
-                ].map((item, i) => (
-                  <div key={i} className="interactive-card" style={{ 
-                    display: 'flex', 
-                    justifyContent: 'space-between', 
-                    alignItems: 'center',
-                    padding: '20px',
-                    background: 'rgba(0,0,0,0.3)',
-                    borderRadius: '16px',
-                    border: '1px solid var(--border-glass)'
-                  }}>
-                    <span style={{ fontWeight: 500, fontSize: '1.05rem' }}>{item.name}</span>
-                    <span style={{ 
-                      padding: '6px 14px', 
-                      borderRadius: '20px', 
-                      fontSize: '0.85rem',
-                      fontWeight: 600,
-                      background: `rgba(${item.color === 'var(--danger-color)' ? '244, 63, 94' : item.color === 'var(--success-color)' ? '16, 185, 129' : '56, 189, 248'}, 0.15)`,
-                      color: item.color,
-                      border: `1px solid ${item.color}40`
-                    }}>
-                      {item.status}
-                    </span>
-                  </div>
-                ))}
+        <div style={{ marginTop: '3rem', display: 'flex', gap: '16px', justifyContent: 'center' }}>
+          <button className="premium-btn" onClick={() => window.open('https://github.com/VAIBHAV7848/EFA', '_blank')}>
+            Install GitHub App
+          </button>
+          <button className="secondary-btn" onClick={() => window.open('https://github.com/VAIBHAV7848/EFA/discussions', '_blank')}>
+            Join Discussions
+          </button>
+        </div>
+        <p style={{ marginTop: '1.5rem', color: 'var(--text-muted)', fontSize: '0.9rem' }}>
+          Works across Claude Code, Cursor, and OpenCode. Fully Open Source.
+        </p>
+      </section>
+
+      {/* Stats Row */}
+      <section style={{ borderTop: '1px solid var(--border-glass)', borderBottom: '1px solid var(--border-glass)', background: 'rgba(0,0,0,0.4)' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', justifyContent: 'center' }}>
+          <div className="stat-box reveal-on-scroll">
+            <div className="stat-number">{agents.length}</div>
+            <div style={{ color: 'var(--text-muted)', fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Active Agents</div>
+          </div>
+          <div className="stat-box reveal-on-scroll">
+            <div className="stat-number">{rules.length}</div>
+            <div style={{ color: 'var(--text-muted)', fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Security Rules</div>
+          </div>
+          <div className="stat-box reveal-on-scroll">
+            <div className="stat-number">{skills.length}</div>
+            <div style={{ color: 'var(--text-muted)', fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Workflow Skills</div>
+          </div>
+          <div className="stat-box reveal-on-scroll">
+            <div className="stat-number">2.6k+</div>
+            <div style={{ color: 'var(--text-muted)', fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Passing Tests</div>
+          </div>
+        </div>
+      </section>
+
+      {/* The Three Layers */}
+      <section style={{ padding: '8rem 2rem', maxWidth: '1200px', margin: '0 auto' }}>
+        <div className="section-marker">Three Layers</div>
+        <h2 style={{ textAlign: 'center', fontSize: '2.5rem', marginBottom: '1rem', letterSpacing: '-0.02em' }}>EFA is not one repo. It is a system with three layers.</h2>
+        <p style={{ textAlign: 'center', color: 'var(--text-muted)', marginBottom: '4rem', fontSize: '1.1rem' }}>
+          The repo drives distribution, AgentShield provides protection, and EFA Control Center is the operator layer that sits above individual harnesses.
+        </p>
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
+          <div className="glass-panel interactive-card reveal-on-scroll" style={{ padding: '2.5rem' }}>
+            <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', letterSpacing: '0.1em', marginBottom: '1rem' }}>DISTRIBUTION LAYER</div>
+            <h3 style={{ fontSize: '1.5rem', marginBottom: '1.5rem', color: '#fff' }}>Open-source harness toolkit</h3>
+            <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '1rem', color: 'var(--text-muted)' }}>
+              <li>✓ The repo stays MIT-licensed</li>
+              <li>✓ Cross-harness coverage across Claude Code, Cursor, and OpenCode</li>
+              <li>✓ Repo gravity and content distribution feed the rest of the system</li>
+            </ul>
+          </div>
+          <div className="glass-panel interactive-card reveal-on-scroll" style={{ padding: '2.5rem', border: '1px solid rgba(249, 115, 22, 0.3)', background: 'rgba(234, 88, 12, 0.05)' }}>
+            <div style={{ fontSize: '0.75rem', color: 'var(--accent-color)', letterSpacing: '0.1em', marginBottom: '1rem' }}>PROTECTION LAYER</div>
+            <h3 style={{ fontSize: '1.5rem', marginBottom: '1.5rem', color: '#fff' }}>AgentShield and policy</h3>
+            <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '1rem', color: 'var(--text-muted)' }}>
+              <li>✓ Protection lives beside distribution, not behind it</li>
+              <li>✓ GitHub App automation for PR scanning and context review</li>
+              <li>✓ Open-source scanner for auditable trust</li>
+            </ul>
+          </div>
+          <div className="glass-panel interactive-card reveal-on-scroll" style={{ padding: '2.5rem' }}>
+            <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', letterSpacing: '0.1em', marginBottom: '1rem' }}>CONTROL-PLANE LAYER</div>
+            <h3 style={{ fontSize: '1.5rem', marginBottom: '1.5rem', color: '#fff' }}>EFA Control operator surface</h3>
+            <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '1rem', color: 'var(--text-muted)' }}>
+              <li>✓ Local-first control plane for observability and orchestration</li>
+              <li>✓ Session and task visibility across multiple harnesses</li>
+              <li>✓ Shipped with the EFA 2.0.0 stable release</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* Skills & Tools */}
+      <section id="skills" style={{ padding: '6rem 2rem', background: 'rgba(255,255,255,0.02)' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+          <div className="section-marker">Skills & Tools</div>
+          <h2 style={{ textAlign: 'center', fontSize: '2.5rem', marginBottom: '1rem', letterSpacing: '-0.02em' }}>Start with the skills and tools teams actually reuse</h2>
+          <p style={{ textAlign: 'center', color: 'var(--text-muted)', marginBottom: '4rem', maxWidth: '800px', margin: '0 auto 4rem auto' }}>
+            The GitHub App is the conversion surface, but these are the workflows that make the EFA ecosystem sticky. Battle-tested skills, agents, security tools, and automation helpers you can adopt in minutes.
+          </p>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '24px' }}>
+            {agents.slice(0, 2).map((item, i) => (
+              <div key={`agent-${i}`} className="glass-panel interactive-card reveal-on-scroll" style={{ padding: '24px' }}>
+                <span style={{ display: 'inline-block', padding: '4px 10px', background: 'rgba(255,255,255,0.1)', borderRadius: '4px', fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '16px' }}>Agent</span>
+                <h3 style={{ fontSize: '1.2rem', marginBottom: '12px' }}>{item.name}</h3>
+                <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', lineHeight: 1.6, marginBottom: '20px' }}>{item.description}</p>
+                <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', borderTop: '1px solid var(--border-glass)', paddingTop: '16px' }}>
+                  <code style={{ color: 'var(--accent-color)' }}>{item.command}</code>
+                </div>
               </div>
-            </div>
-          </>
-        )}
-        
-        {activeTab === 'Agents' && (
-          <div className="glass-panel" style={{ flex: 1, padding: '32px', display: 'flex', flexDirection: 'column' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '24px', alignItems: 'center' }}>
-              <h2 className="heading-display">Agents Directory</h2>
-              <input 
-                type="text" 
-                placeholder="Search agents..." 
-                value={searchQuery}
-                onChange={e => setSearchQuery(e.target.value)}
-                style={{ 
-                  padding: '10px 20px', 
-                  borderRadius: '12px', 
-                  border: '1px solid var(--border-glass)', 
-                  background: 'rgba(0,0,0,0.3)', 
-                  color: '#fff',
-                  width: '300px',
-                  fontFamily: 'Outfit, sans-serif'
-                }}
-              />
-            </div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '20px', overflowY: 'auto', flex: 1, paddingBottom: '20px' }}>
-              {filteredAgents.map((agent, i) => (
-                <div key={i} className="interactive-card" style={{ padding: '24px', background: 'var(--bg-card)', borderRadius: '16px', border: '1px solid var(--border-glass)', display: 'flex', flexDirection: 'column' }}>
-                  <h3 className="heading-display" style={{ fontSize: '1.3rem', marginBottom: '8px' }}>{agent.name}</h3>
-                  <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '24px', flex: 1, lineHeight: 1.5 }}>{agent.description}</p>
-                  <button 
-                    onClick={() => handleCopy(agent.command, agent.name)}
-                    className="secondary-btn"
-                    style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span>{agent.command}</span>
-                    <span style={{ color: 'var(--accent-color)' }}>Copy</span>
-                  </button>
+            ))}
+            {skills.slice(0, 4).map((item, i) => (
+              <div key={`skill-${i}`} className="glass-panel interactive-card reveal-on-scroll" style={{ padding: '24px' }}>
+                <span style={{ display: 'inline-block', padding: '4px 10px', background: 'rgba(234, 88, 12, 0.1)', color: 'var(--accent-color)', border: '1px solid rgba(234, 88, 12, 0.2)', borderRadius: '4px', fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '16px' }}>Skill</span>
+                <h3 style={{ fontSize: '1.2rem', marginBottom: '12px' }}>{item.name}</h3>
+                <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', lineHeight: 1.6, marginBottom: '20px' }}>{item.description}</p>
+                <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', borderTop: '1px solid var(--border-glass)', paddingTop: '16px' }}>
+                  <code style={{ color: 'var(--accent-color)' }}>{item.command}</code>
                 </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {activeTab === 'Skills' && (
-          <div className="glass-panel" style={{ flex: 1, padding: '32px', display: 'flex', flexDirection: 'column' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '24px', alignItems: 'center' }}>
-              <h2 className="heading-display">Skills Library</h2>
-              <input 
-                type="text" 
-                placeholder="Search skills..." 
-                value={searchQuery}
-                onChange={e => setSearchQuery(e.target.value)}
-                style={{ 
-                  padding: '10px 20px', 
-                  borderRadius: '12px', 
-                  border: '1px solid var(--border-glass)', 
-                  background: 'rgba(0,0,0,0.3)', 
-                  color: '#fff',
-                  width: '300px',
-                  fontFamily: 'Outfit, sans-serif'
-                }}
-              />
-            </div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '20px', overflowY: 'auto', flex: 1, paddingBottom: '20px' }}>
-              {filteredSkills.map((skill, i) => (
-                <div key={i} className="interactive-card" style={{ padding: '24px', background: 'var(--bg-card)', borderRadius: '16px', border: '1px solid var(--border-glass)', display: 'flex', flexDirection: 'column' }}>
-                  <h3 className="heading-display" style={{ fontSize: '1.3rem', marginBottom: '8px' }}>{skill.name}</h3>
-                  <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '24px', flex: 1, lineHeight: 1.5 }}>{skill.description}</p>
-                  <div style={{ background: 'rgba(0,0,0,0.4)', padding: '12px', borderRadius: '10px', fontSize: '0.85rem', color: 'var(--text-muted)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', border: '1px solid rgba(255,255,255,0.02)' }}>
-                    <code style={{ fontFamily: 'monospace' }}>{skill.command}</code>
-                    <button onClick={() => handleCopy(skill.command, skill.name)} style={{ background: 'transparent', border: 'none', color: 'var(--accent-color)', cursor: 'pointer', fontWeight: 600 }}>Copy</button>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {activeTab === 'AgentShield' && (
-          <div className="glass-panel" style={{ flex: 1, padding: '32px', display: 'flex', flexDirection: 'column' }}>
-            <div style={{ marginBottom: '40px', textAlign: 'center', padding: '40px 0' }}>
-              <div style={{ 
-                display: 'inline-block',
-                padding: '20px 40px',
-                borderRadius: '24px',
-                background: `rgba(${score >= 80 ? '16, 185, 129' : '244, 63, 94'}, 0.1)`,
-                border: `1px solid ${scoreColor}40`,
-                boxShadow: `0 0 40px ${scoreColor}20`
-              }}>
-                <h2 className="heading-display" style={{ color: scoreColor, fontSize: '4rem', textShadow: `0 0 20px ${scoreColor}40` }}>{score}/100</h2>
-                <p style={{ color: 'var(--text-muted)', fontSize: '1.1rem', marginTop: '8px', fontWeight: 500 }}>Overall Threat Score</p>
               </div>
-            </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', maxWidth: '700px', margin: '0 auto', width: '100%' }}>
-              {shieldChecks.map((item, i) => (
-                <div key={i} className="interactive-card" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '20px 24px', background: 'rgba(0,0,0,0.3)', borderRadius: '16px', border: '1px solid var(--border-glass)' }}>
-                  <span style={{ fontWeight: 500, fontSize: '1.05rem' }}>{item.q}</span>
-                  <span style={{ fontSize: '1.2rem', filter: 'drop-shadow(0 0 10px rgba(16, 185, 129, 0.4))' }}>{item.a}</span>
-                </div>
-              ))}
-            </div>
+            ))}
           </div>
-        )}
+          
+          <div style={{ textAlign: 'center', marginTop: '3rem' }}>
+            <button className="secondary-btn" onClick={() => window.open('https://github.com/VAIBHAV7848/EFA', '_blank')}>
+              Explore {skills.length} Skills & {agents.length} Agents
+            </button>
+          </div>
+        </div>
+      </section>
 
-        {activeTab === 'Rules' && (
-          <div className="glass-panel" style={{ flex: 1, padding: '32px', display: 'flex', flexDirection: 'column' }}>
-            <h2 className="heading-display" style={{ marginBottom: '32px' }}>Language Rules Engine</h2>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: '20px' }}>
-              {rules.map((rule, i) => (
-                <div 
-                  key={i} 
-                  className="interactive-card"
-                  onClick={() => handleCopy(`efa --rule ${rule.language}`, `${rule.language} rule`)}
-                  style={{ 
-                    padding: '24px', 
-                    background: 'var(--bg-card)', 
-                    borderRadius: '16px', 
-                    border: '1px solid var(--border-glass)', 
-                    textAlign: 'center', 
-                    cursor: 'pointer'
-                  }}
-                >
-                  <div style={{ 
-                    fontSize: '3rem', 
-                    marginBottom: '16px',
-                    filter: 'drop-shadow(0 4px 10px rgba(0,0,0,0.2))'
-                  }}>🌐</div>
-                  <h3 className="heading-display" style={{ textTransform: 'capitalize', marginBottom: '8px', fontSize: '1.4rem' }}>{rule.language}</h3>
-                  <p style={{ fontSize: '0.9rem', color: 'var(--accent-color)', fontWeight: 500 }}>{rule.files.length} rule files</p>
-                </div>
-              ))}
+      {/* AgentShield */}
+      <section id="security" style={{ padding: '8rem 2rem', maxWidth: '1000px', margin: '0 auto' }}>
+        <div className="section-marker">AgentShield</div>
+        <div className="glass-panel reveal-on-scroll" style={{ border: '1px solid rgba(16, 185, 129, 0.3)', overflow: 'hidden' }}>
+          <div style={{ padding: '2rem', borderBottom: '1px solid var(--border-glass)', display: 'flex', alignItems: 'center', gap: '1rem' }}>
+            <div style={{ width: '48px', height: '48px', background: 'rgba(16, 185, 129, 0.1)', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem', color: '#10b981' }}>🛡️</div>
+            <div>
+              <h3 style={{ fontSize: '1.5rem' }}>AgentShield</h3>
+              <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Open-source security reviewer for AI agent configs. Use it locally, or as the foundation for enterprise reporting.</p>
             </div>
           </div>
-        )}
+          <div style={{ padding: '2rem', background: '#000', fontFamily: 'JetBrains Mono, monospace', fontSize: '0.9rem', color: 'var(--text-muted)' }}>
+            <div style={{ color: '#10b981', marginBottom: '1rem' }}>$ npx efa-agentshield scan ./CLAUDE.md</div>
+            {shieldChecks.map((check, i) => (
+              <div key={i} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem', paddingBottom: '0.5rem', borderBottom: '1px dashed rgba(255,255,255,0.1)' }}>
+                <span>{check.q}</span>
+                <span style={{ color: check.a === '✅' ? '#10b981' : '#ef4444' }}>{check.a === '✅' ? 'PASS' : 'FAIL'}</span>
+              </div>
+            ))}
+            <div style={{ marginTop: '1.5rem', color: '#10b981' }}>
+              Security Score: {Math.round((shieldChecks.filter(c => c.a === '✅').length / shieldChecks.length) * 100)}%
+            </div>
+          </div>
+        </div>
+      </section>
 
-        {activeTab === 'GitHub' && (
-          <div className="glass-panel" style={{ flex: 1, padding: '40px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>
-            <div style={{ 
-              fontSize: '5rem', 
-              marginBottom: '24px',
-              filter: 'drop-shadow(0 0 30px rgba(255, 255, 255, 0.2))'
-            }}>⭐</div>
-            <h2 className="heading-display" style={{ fontSize: '3rem', marginBottom: '16px' }}>Open Source & Free</h2>
-            <p style={{ color: 'var(--text-muted)', fontSize: '1.15rem', maxWidth: '650px', marginBottom: '40px', lineHeight: 1.6 }}>
-              EFA is built to give control back to developers. It's a complete, local AI operating system with autonomous agents, true parallel execution, and auto-healing capabilities. Support the project by dropping a star!
-            </p>
-            <div style={{ display: 'flex', gap: '20px' }}>
-              <button 
-                className="premium-btn"
-                style={{ fontSize: '1.1rem', padding: '16px 36px', display: 'flex', alignItems: 'center', gap: '10px' }}
-                onClick={() => window.open('https://github.com/VAIBHAV7848/EFA', '_blank')}
-              >
-                <span style={{ fontSize: '1.2rem' }}>⭐</span> Star Repository
-              </button>
-              <button 
-                className="secondary-btn"
-                style={{ fontSize: '1.1rem', padding: '16px 36px' }}
-                onClick={() => window.open('https://github.com/VAIBHAV7848/EFA/discussions', '_blank')}
-              >
-                Join Discussions
-              </button>
-            </div>
+      {/* Rules Engine */}
+      <section id="rules" style={{ padding: '6rem 2rem', background: 'rgba(255,255,255,0.02)' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+          <div className="section-marker">Rules Ecosystem</div>
+          <h2 style={{ textAlign: 'center', fontSize: '2.5rem', marginBottom: '4rem', letterSpacing: '-0.02em' }}>The OS layer that makes the GitHub App sticky</h2>
+          
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', justifyContent: 'center' }}>
+            {rules.map((rule, i) => (
+              <div key={i} className="glass-panel interactive-card reveal-on-scroll" style={{ padding: '16px 24px', display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer' }} onClick={() => navigator.clipboard.writeText(`efa --rule ${rule.language}`)}>
+                <span style={{ color: 'var(--accent-color)' }}>🌐</span>
+                <span style={{ fontWeight: 500, textTransform: 'capitalize' }}>{rule.language}</span>
+                <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', background: 'rgba(255,255,255,0.05)', padding: '2px 8px', borderRadius: '10px' }}>{rule.files.length}</span>
+              </div>
+            ))}
           </div>
-        )}
-      </main>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer style={{ padding: '4rem 2rem', textAlign: 'center', borderTop: '1px solid var(--border-glass)', color: 'var(--text-muted)', fontSize: '0.9rem' }}>
+        <p style={{ marginBottom: '1rem' }}>Built by <strong>VAIBHAV7848</strong>. Open source under MIT license.</p>
+        <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem' }}>
+          <a href="https://github.com/VAIBHAV7848/EFA" target="_blank" rel="noreferrer" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>GitHub</a>
+          <span>•</span>
+          <a href="https://github.com/VAIBHAV7848/EFA/discussions" target="_blank" rel="noreferrer" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>Discussions</a>
+        </div>
+      </footer>
     </div>
   );
 }
